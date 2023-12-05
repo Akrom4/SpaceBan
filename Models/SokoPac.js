@@ -20,7 +20,7 @@ class SokoPac {
   ];
 
   constructor() {
-    console.log("SokoPac Class Init");
+    console.log("***** SokoPac Game Start *****");
     this.history = [];
     document.getElementById(
       "app"
@@ -28,6 +28,12 @@ class SokoPac {
                     <div id="gameGrid"></div>
                   `;
     this.render();
+  }
+
+  addEvents(){
+    document.getElementById("reset").addEventListener("click", (event) => {
+        this.resetGame();
+    });
     window.addEventListener("keydown", (event) => {
       if (event.key == "ArrowLeft") {
         this.move([-1, 0]);
@@ -51,12 +57,12 @@ class SokoPac {
     let gridSize = this.squares[0].length * 5;
     boardDiv.style.maxWidth = gridSize + "vmin";
     boardDiv.innerHTML = this.toHTML();
+    this.addEvents();
   }
 
   userInterface() {
-    console.log("UI Init");
     let content = ` <div id="gameInfo">
-                        <p>Objectif manger toutes les dots !</p>
+                        <button id="reset" class="button">Reset</button>
                     </div>                      
                   `;
     return content;
@@ -69,8 +75,12 @@ class SokoPac {
         content += ` <div class="squareWrap"><div class="square square${square}"></div></div>`;
       });
     });
-
     return content;
+  }
+
+  updateUI()
+  {
+    document.getElementById("gameGrid").innerHTML = this.toHTML();
   }
 
   move(dirMove) {
@@ -94,15 +104,36 @@ class SokoPac {
           this.squares[rowIndex][columnIndex] = 4;
           this.squares[nextRow][nextColumn] = 0;
           this.squares[afterNextRow][afterNextColumn] = 2;
-          this.render();
+          this.updateUI();
         }
       } else {
         // Move PacMan to the next square if it's not a Box or Wall
         this.squares[rowIndex][columnIndex] = 4;
         this.squares[nextRow][nextColumn] = 0;
-        this.render();
+        this.updateUI();
       }
     }
   }
+  resetGame()
+  {
+    this.squares = this.initBoard();
+    this.updateUI();
+  }
   undoMove() {}
+
+  initBoard()
+  {
+    return [
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4],
+        [3, 1, 1, 4, 4, 3, 4, 4, 4, 4, 4, 3, 3, 3],
+        [3, 1, 1, 4, 4, 3, 4, 2, 4, 4, 2, 4, 4, 3],
+        [3, 1, 1, 4, 4, 3, 2, 3, 3, 3, 3, 4, 4, 3],
+        [3, 1, 1, 4, 4, 4, 4, 0, 4, 3, 3, 4, 4, 3],
+        [3, 1, 1, 4, 4, 3, 4, 3, 4, 4, 2, 4, 3, 3],
+        [3, 3, 3, 3, 3, 3, 4, 3, 3, 2, 4, 2, 4, 3],
+        [4, 4, 3, 4, 2, 4, 4, 2, 4, 2, 4, 2, 4, 3],
+        [4, 4, 3, 4, 4, 4, 4, 3, 4, 4, 4, 4, 4, 3],
+        [4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+      ];
+  }
 }
