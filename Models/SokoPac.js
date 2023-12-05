@@ -74,21 +74,35 @@ class SokoPac {
   }
 
   move(dirMove) {
-    console.log("move");
+    // Pacman position To replace when Pac class is implemented
     let rowIndex = this.squares.findIndex((row) => row.includes(0));
     let columnIndex = this.squares[rowIndex].findIndex((col) => col === 0);
-    
-    if(this.squares[rowIndex + dirMove[1]][columnIndex + dirMove[0]] !== 3) {
+    let nextRow = rowIndex + dirMove[1];
+    let nextColumn = columnIndex + dirMove[0];
+    let nextSquare = this.squares[nextRow][nextColumn];
+
+    // Check if the next square is not a Wall
+    if (nextSquare !== 3) {
+      // If next square is a Box and the square after it is not a Box or Wall
+      if (nextSquare === 2) {
+        let afterNextRow = nextRow + dirMove[1];
+        let afterNextColumn = nextColumn + dirMove[0];
+        let afterNextSquare = this.squares[afterNextRow][afterNextColumn];
+
+        if (afterNextSquare !== 3 && afterNextSquare !== 2) {
+          // Move PacMan to the Box's position, and move the Box forward
+          this.squares[rowIndex][columnIndex] = 4;
+          this.squares[nextRow][nextColumn] = 0;
+          this.squares[afterNextRow][afterNextColumn] = 2;
+          this.render();
+        }
+      } else {
+        // Move PacMan to the next square if it's not a Box or Wall
         this.squares[rowIndex][columnIndex] = 4;
-        this.squares[rowIndex + dirMove[1]][columnIndex + dirMove[0]] = 0;
+        this.squares[nextRow][nextColumn] = 0;
         this.render();
+      }
     }
-    
   }
-
-  undoMove() {
-
-  }
-
-
+  undoMove() {}
 }
