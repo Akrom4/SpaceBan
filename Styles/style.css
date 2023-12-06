@@ -10,7 +10,7 @@ body {
 }
 
 h2 {
-    background: linear-gradient(to right, #dbd800 20%, #ffa000 50%, #dbd800 80%);
+    background: radial-gradient( #dbd800 20%, #ffa000 50%, #dbd800 80%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -75,12 +75,15 @@ h2 {
   width: 5vmin;
   height: 5vmin;
 }
-/* 
-    Square css
-        0 -> PacMan
-        1 -> Box
-        2 -> Wall
-        3 -> Empty
+
+/* Square array legend
+          0 -> PacMan
+          1 -> Dot
+          2 -> Box
+          3 -> Wall
+          4 -> Empty
+          5 -> Box on Dot
+          6 -> PacMan on Dot
 */
 .square0 {
   display: flex;
