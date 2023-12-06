@@ -19,7 +19,7 @@ body {
     background-color: #000000;
 }
 
-#gameInterface {
+#gameInfo {
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
@@ -98,7 +98,15 @@ body {
 }
 .square4 {
     background-color: #000000;
-
+}
+.square5 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../Images/gGreen.png");
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position-y: center;
 }
 
 .button {
