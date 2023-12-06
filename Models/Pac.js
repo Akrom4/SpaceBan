@@ -98,6 +98,7 @@ class SokoPacView {
     let content = "";
     this.viewModel.model.squares.forEach((row) => {
       row.forEach((square) => {
+        square = square === 6 ? 0 : square;
         content += ` <div class="squareWrap"><div class="square square${square}"></div></div>`; // Add the correct css class to a square
       });
     });
@@ -184,55 +185,79 @@ class SokoPacModel {
   // Square array that depicts the map
   initBoard() {
     return [
-      [3, 3, 3, 3, 3, 3, 3],
-      [3, 0, 4, 2, 1, 4, 3],
-      [3, 3, 3, 3, 3, 3, 3],
+      [3, 3, 3, 3, 3, 3, 3, 3],
+      [3, 0, 4, 2, 1, 4, 4, 3],
+      [3, 4, 4, 2, 1, 4, 4, 3],
+      [3, 4, 4, 2, 1, 4, 4, 3],
+      [3, 4, 4, 2, 1, 4, 4, 3],
+      [3, 3, 3, 3, 3, 3, 3, 3],
     ];
   }
 
   // Movement handling
   move(dirMove) {
-    // Pacman position To replace when Pac class is implemented
-    let rowIndex = this.squares.findIndex((row) => row.includes(0));
-    let columnIndex = this.squares[rowIndex].findIndex((col) => col === 0);
-    let nextRow = rowIndex + dirMove[1];
-    let nextColumn = columnIndex + dirMove[0];
-    let nextSquare = this.squares[nextRow][nextColumn];
+    // Pacman or Pacman on a dot position
+    let rowIndex = this.squares.findIndex(
+      (row) => row.includes(0) || row.includes(6)
+    );
+    let columnIndex = this.squares[rowIndex].findIndex(
+      (col) => col === 0 || col === 6
+    );
+    // Pacman destination position
+    let destinationRow = rowIndex + dirMove[1];
+    let destinationColumn = columnIndex + dirMove[0];
+    let destination = this.squares[destinationRow][destinationColumn];
+    // Store the current state of the square PacMan is leaving
+    let currentSquare = this.squares[rowIndex][columnIndex];
 
-    // Check if the next square is not a Wall
-    if (nextSquare !== 3) {
-      // If next square is a Box and the square after it is not a Box or Wall
-      if (nextSquare === 2 || nextSquare === 5) {
-        let afterNextRow = nextRow + dirMove[1];
-        let afterNextColumn = nextColumn + dirMove[0];
-        let afterNextSquare = this.squares[afterNextRow][afterNextColumn];
+    // Check if the destination is not a Wall and within grid boundaries
+    if (
+      destination !== 3 &&
+      this.isValidPosition(destinationRow, destinationColumn)
+    ) {
+      // Handle Box Movement
+      if (destination === 2 || destination === 5) {
+        let nextDestinationRow = destinationRow + dirMove[1];
+        let nextDestinationColumn = destinationColumn + dirMove[0];
 
-        if (
-          afterNextSquare !== 3 &&
-          afterNextSquare !== 2 &&
-          afterNextSquare !== 5
-        ) {
-          // Move PacMan to the Box's position, and move the Box forward
-          this.squares[rowIndex][columnIndex] = 4;
-          this.squares[nextRow][nextColumn] = 0;
-          if (afterNextSquare === 1) {
-            this.squares[afterNextRow][afterNextColumn] = 5;
-          } else {
-            this.squares[afterNextRow][afterNextColumn] = 2;
+        // Check for valid next position
+        if (this.isValidPosition(nextDestinationRow, nextDestinationColumn)) {
+          let nextDestination =
+            this.squares[nextDestinationRow][nextDestinationColumn];
+
+          // Handle moving the box
+          if (
+            nextDestination !== 3 &&
+            nextDestination !== 2 &&
+            nextDestination !== 5
+          ) {
+            // Update current and next positions of the box
+            this.squares[nextDestinationRow][nextDestinationColumn] =
+              nextDestination === 1 ? 5 : 2;
+            this.squares[destinationRow][destinationColumn] =
+              destination === 5 ? 6 : 0; // Restore Dot if Box was on Dot
+            this.squares[rowIndex][columnIndex] = currentSquare === 6 ? 1 : 4; // Restore Dot if PacMan was on Dot
+
+            this.onMove();
           }
-
-          this.onMove();
         }
       } else {
-        // Move PacMan to the next square if it's not a Box or Wall
-        this.squares[rowIndex][columnIndex] = 4;
-        this.squares[nextRow][nextColumn] = 0;
+        // Handle PacMan Movement
+        this.squares[destinationRow][destinationColumn] =
+          destination === 1 ? 6 : 0;
+        this.squares[rowIndex][columnIndex] = currentSquare === 6 ? 1 : 4;
+
         this.onMove();
       }
     }
     if (this.checkWinCondition()) {
       this.onWin();
     }
+  }
+
+  //
+  isValidPosition(row, column) {
+    return row >= 0 && row < this.squares.length && column >= 0 && column < this.squares[row].length;
   }
 
   // Win condition check
