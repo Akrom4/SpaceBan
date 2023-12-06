@@ -9,9 +9,10 @@
   <body>
     <div id="app"></div>
   </body>
-  <script src="Models/Dots.js"></script>
-  <script src="Models/Pac.js"></script>
-  <!-- <script src="Models/SokoPac.js"></script> -->
+  <script src="Models/Maps.js"></script>
+  <script src="Models/SokoPacModel.js"></script>
+  <script src="Models/SokoPacView.js"></script>
+  <script src="Models/SokoPacViewModel.js"></script>
   <script>
     // Initialize the SokoPac game
     document.addEventListener("DOMContentLoaded", function () {
@@ -19,6 +20,7 @@
       const viewModel = new SokoPacViewModel(model);
       const view = new SokoPacView(viewModel);
       viewModel.setView(view);
+      view.renderLevelSelectionMenu(); // Start with level selection menu
     });
   </script>
 </html>

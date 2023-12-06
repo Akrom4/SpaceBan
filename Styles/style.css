@@ -1,60 +1,79 @@
 body {
-	margin: 0;
-	padding: 0;
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #040338;
-	font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #040338;
+  font-family: Arial, sans-serif;
 }
 
+h2 {
+    background: linear-gradient(to right, #dbd800 20%, #ffa000 50%, #dbd800 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 5em;
+    background-size: 200% auto;
+    animation: shine 2s linear infinite;
+  }
+  
+  @keyframes shine {
+    from {
+      background-position: 200% center;
+    }
+    to {
+      background-position: -200% center;
+    }
+  }
+
 #app {
-	display: flex;
-	justify-content: center ;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	padding: 0 5vmin;
-    background-color: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 5vmin;
+  background-color: #000000;
 }
 
 #gameInfo {
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-start;
-	padding: 2vmin;
-	background-color: #000000;
-	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-	border-radius: 2vmin;
-	width: 16vmin;
-	margin-right: 5vmin;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2vmin;
+  background-color: #000000;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 2vmin;
+  width: 16vmin;
+  margin-right: 5vmin;
 }
 
 #gameGrid {
-    flex-grow: 1;
-    display: flex;
-    flex-wrap: wrap; 
-    align-items: center; 
-    justify-content: center;
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
-.squareWrap{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 5vmin;
-	height: 5vmin;
+.squareWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5vmin;
+  height: 5vmin;
 }
 
-.square{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 5vmin;
-	height: 5vmin;
+.square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5vmin;
+  height: 5vmin;
 }
 /* 
     Square css
@@ -64,49 +83,49 @@ body {
         3 -> Empty
 */
 .square0 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url("../Images/pacmanAvatar.png");
-    background-repeat: no-repeat;
-    background-size: 80%;
-    background-position-y: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../Images/pacmanAvatar.png");
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position-y: center;
 }
 .square1 {
-    width : 30%;
-    height: 30%;
-    border-radius: 50%;
-    background-color: #ffff00;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  background-color: #ffff00;
 }
 .square2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url("../Images/gRed.png");
-    background-repeat: no-repeat;
-    background-size: 80%;
-    background-position-y: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../Images/gRed.png");
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position-y: center;
 }
 .square3 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url("../Images/wall.png");
-    background-repeat: no-repeat;
-    background-size: 80%;
-    background-position-y: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../Images/wall.png");
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position-y: center;
 }
 .square4 {
-    background-color: #000000;
+  background-color: #000000;
 }
 .square5 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url("../Images/gGreen.png");
-    background-repeat: no-repeat;
-    background-size: 80%;
-    background-position-y: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../Images/gGreen.png");
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position-y: center;
 }
 
 .button {
@@ -122,12 +141,13 @@ body {
   display: inline-block;
   flex-direction: row;
   flex-shrink: 0;
-  font-family: Eina01,sans-serif;
+  font-family: Eina01, sans-serif;
   font-size: 16px;
   font-weight: 800;
   justify-content: center;
   line-height: 24px;
   margin: 0;
+  margin-top: 2vmin;
   min-height: 64px;
   outline: none;
   overflow: visible;
@@ -180,7 +200,11 @@ body {
 }
 
 .button:hover:not(:disabled):before {
-  background: linear-gradient(92.83deg, rgb(255, 116, 38) 0%, rgb(249, 58, 19) 100%);
+  background: linear-gradient(
+    92.83deg,
+    rgb(255, 116, 38) 0%,
+    rgb(249, 58, 19) 100%
+  );
 }
 
 .button:hover:not(:disabled):after {
@@ -197,7 +221,12 @@ body {
 }
 
 .button:active:not(:disabled):before {
-  background-image: linear-gradient(0deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), linear-gradient(92.83deg, #ff7426 0, #f93a13 100%);
+  background-image: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2)
+    ),
+    linear-gradient(92.83deg, #ff7426 0, #f93a13 100%);
 }
 
 .button:active:not(:disabled):after {
@@ -210,5 +239,40 @@ body {
 
 .button:disabled {
   cursor: default;
-  opacity: .24;
+  opacity: 0.24;
+}
+
+.button-green:before {
+  background-image: linear-gradient(92.83deg, #32a852 0, #248c3b 100%);
+}
+
+.button-green:hover:not(:disabled):before {
+  background: linear-gradient(
+    92.83deg,
+    rgb(50, 168, 82) 0%,
+    rgb(36, 140, 59) 100%
+  );
+}
+
+.button-green:active:not(:disabled):before {
+  background-image: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2)
+    ),
+    linear-gradient(92.83deg, #32a852 0, #248c3b 100%);
+}
+.button-green:after {
+  background-color: initial;
+  background-image: linear-gradient(#0f542c 0, #0c0d0d 100%);
+  bottom: 4px;
+  content: "";
+  display: block;
+  left: 4px;
+  overflow: hidden;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  transition: all 100ms ease-out;
+  z-index: -1;
 }
