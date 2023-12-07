@@ -77,39 +77,57 @@ class SokoPacView {
       this.viewModel.handleUndo();
     });
   }
-  // Game grid creation and update
   updateUI() {
-    const boardDiv = document.getElementById("gameGrid"); // Get the 'gameGrid' div element
+    const boardDiv = document.getElementById("gameGrid");
     const moveCountDiv = document.getElementById("moveCount");
     if (moveCountDiv) {
       moveCountDiv.textContent = "Moves: " + this.viewModel.model.moveCount;
     }
-    // Calculate grid size based on the number of squares
-    let gridSize = this.viewModel.model.squares[0].length * 5;
-    boardDiv.style.maxWidth = gridSize + "vmin";
-
-    // Update the inner HTML of the 'gameGrid' div with the current game state
-    boardDiv.innerHTML = this.toHTML();
+  
+    // Calculate the size of each square and the number of columns
+    const numColumns = this.viewModel.model.squares[0].length;
+    const squareSize = Math.min(90 / numColumns, 5); // Calculate size, but not larger than 5vmin
+  
+    // Set grid template columns based on the number of columns
+    boardDiv.style.gridTemplateColumns = `repeat(${numColumns}, ${squareSize}vmin)`;
+  
+    // Render the grid cells
+    boardDiv.innerHTML = this.toHTML(squareSize);
   }
-
-  // Grid rendering
-  toHTML() {
+  
+  // Grid rendering with dynamic square size
+  toHTML(squareSize) {
     let content = "";
     this.viewModel.model.squares.forEach((row) => {
       row.forEach((square) => {
         square = square === 6 ? 0 : square;
-        content += ` <div class="squareWrap"><div class="square square${square}"></div></div>`; // Add the correct css class to a square
+        content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+                      <div class="square square${square}" style="width: ${squareSize * 0.8}vmin; height: ${squareSize * 0.8}vmin;"></div>
+                    </div>`;
       });
     });
     return content;
   }
+  toHTML(squareSize) {
+    let content = "";
+    this.viewModel.model.squares.forEach((row) => {
+      row.forEach((square) => {
+        square = square === 6 ? 0 : square;
+        let sizeMultiplier = square === 1 ? 0.3 : 0.8; // Reduce size for square1
+        let adjustedSize = squareSize * sizeMultiplier;
+        content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+                      <div class="square square${square}" style="width: ${adjustedSize}vmin; height: ${adjustedSize}vmin;"></div>
+                    </div>`;
+      });
+    });
+    return content;
+  }
+  
 
   //
   renderLevelSelectionMenu() {
     const clearedLevels = this.viewModel.getClearedLevels();
-    console.log(clearedLevels);
     const totalLevels = Map.getTotalLevels();
-    console.log(totalLevels);
   
     let menuContent = `<div id="levelMenuContainer">
                          <div id="menuHeader"><h2>Select Level</h2></div>
