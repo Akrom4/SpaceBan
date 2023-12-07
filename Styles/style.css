@@ -8,8 +8,10 @@ body {
   background-color: #040338;
   font-family: Arial, sans-serif;
 }
-
-h2 {
+#moveCount {
+    background-color: #ffffff;
+}
+#menuHeader {
     background: radial-gradient( #dbd800 20%, #ffa000 50%, #dbd800 80%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -28,6 +30,23 @@ h2 {
     }
   }
 
+  #levelMenuContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+  }
+  
+  
+  #levelSelection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1vmin;
+  }
 #app {
   display: flex;
   justify-content: center;
@@ -37,6 +56,7 @@ h2 {
   padding: 0 5vmin;
   background-color: #000000;
 }
+
 
 #gameInfo {
   display: flex;
@@ -131,6 +151,18 @@ h2 {
   background-position-y: center;
 }
 
+#levelSelection {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    align-items: center; 
+    gap: 1vmin;
+  }
+
+  .level-btn {
+    flex: 1 1 auto; 
+  }
+  
 .button {
   align-items: center;
   appearance: none;
@@ -149,9 +181,9 @@ h2 {
   font-weight: 800;
   justify-content: center;
   line-height: 24px;
-  margin: 0;
+  margin: 1vmin;
   margin-top: 2vmin;
-  min-height: 64px;
+  min-height: 1vmin;
   outline: none;
   overflow: visible;
   padding: 19px 26px;

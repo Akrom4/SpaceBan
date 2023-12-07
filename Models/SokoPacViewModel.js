@@ -24,7 +24,26 @@ class SokoPacViewModel {
     if (this.view) {
       this.view.removeKeyEvents();
       this.view.showWinMessage();
+      this.saveLevelProgress(this.model.level);
     }
+  }
+
+  //
+  saveLevelProgress(level) {
+    let clearedLevels = this.getClearedLevels();
+    if (!clearedLevels.includes(level)) {
+      clearedLevels.push(level);
+      localStorage.setItem(
+        "sokoPacClearedLevels",
+        JSON.stringify(clearedLevels)
+      );
+    }
+  }
+
+  // Retrieve cleared levels from local storage
+  getClearedLevels() {
+    let clearedLevels = localStorage.getItem("sokoPacClearedLevels");
+    return clearedLevels ? JSON.parse(clearedLevels) : [];
   }
 
   // Bind the View to the ViewModel
@@ -51,5 +70,13 @@ class SokoPacViewModel {
     this.view.bindKeyEvents();
     this.view.updateUI();
   }
+  //
+  handleMenu() {
+    this.view.renderLevelSelectionMenu();
+  }
+  //
+  handleUndo() {
+    this.model.undoMove();
+    this.view.updateUI();
+  }
 }
-
