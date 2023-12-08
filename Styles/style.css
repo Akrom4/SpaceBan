@@ -1,7 +1,7 @@
 :root {
-    --square-size: 5vmin; /* Default square size */
-  }
-  
+  --square-size: 5vmin; /* Default square size */
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -13,44 +13,52 @@ body {
   font-family: Arial, sans-serif;
 }
 #moveCount {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 #menuHeader {
-    background: radial-gradient( #dbd800 20%, #ffa000 50%, #dbd800 80%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-size: 5em;
-    background-size: 200% auto;
-    animation: shine 2s linear infinite;
-  }
-  
-  @keyframes shine {
-    from {
-      background-position: 200% center;
-    }
-    to {
-      background-position: -200% center;
-    }
-  }
+  background: radial-gradient(#dbd800 20%, #ffa000 50%, #dbd800 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 3em;
+  background-size: 200% auto;
+  animation: shine 2s linear infinite;
+}
 
-  #levelMenuContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    height: 100%;
+@keyframes shine {
+  from {
+    background-position: 200% center;
   }
-  
-  
-  #levelSelection {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1vmin;
+  to {
+    background-position: -200% center;
   }
+}
+
+#levelMenuContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+#levelSelection {
+  display: grid;
+  grid-template-columns: repeat(10, auto);
+  gap: 1vmin;
+  justify-content: center;
+  align-items: center;
+}
+
+.level-btn {
+  min-width: 5vmin;
+  min-height: 5vmin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+}
 #app {
   display: flex;
   justify-content: center;
@@ -60,7 +68,6 @@ body {
   padding: 0 1vmin;
   background-color: #000000;
 }
-
 
 #gameInfo {
   display: flex;
@@ -76,68 +83,56 @@ body {
 }
 
 #gameGrid {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    gap: 2px; /* Adjust the gap between cells as needed */
-  }
-  
-  .squareWrap {
-    width: var(--square-size);
-    height: var(--square-size);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  gap: 2px; /* Adjust the gap between cells as needed */
+}
+
+.squareWrap {
+  width: var(--square-size);
+  height: var(--square-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .square {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Dynamic sizing for squares */
-  .square {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 80%; 
-  }
-  
-  /* Specific square types */
-  .square0 {
-    background-image: url("../Images/pacmanAvatar.png");
-  }
-  .square1 {
-    width: 30%;
-    height: 30%;
-    border-radius: 50%;
-    background-color: #ffff00;
-  }
-  .square2 {
-    background-image: url("../Images/gRed.png");
-  }
-  .square3 {
-    background-image: url("../Images/wall.png");
-  }
-  .square4 {
-    background-color: #000000;
-  }
-  .square5 {
-    background-image: url("../Images/gGreen.png");
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-#levelSelection {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: center;
-    align-items: center; 
-    gap: 1vmin;
-  }
+/* Dynamic sizing for squares */
+.square {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80%;
+}
 
-  .level-btn {
-    flex: 1 1 auto; 
-  }
-  
+/* Specific square types */
+.square0 {
+  background-image: url("../Images/pacmanAvatar.png");
+}
+.square1 {
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  background-color: #ffff00;
+}
+.square2 {
+  background-image: url("../Images/gRed.png");
+}
+.square3 {
+  background-image: url("../Images/wall.png");
+}
+.square4 {
+  background-color: #000000;
+}
+.square5 {
+  background-image: url("../Images/gGreen.png");
+}
+
 .button {
   align-items: center;
   appearance: none;
@@ -158,10 +153,10 @@ body {
   line-height: 24px;
   margin: 1vmin;
   margin-top: 2vmin;
-  min-height: 1vmin;
+  min-height: 2vmin;
   outline: none;
   overflow: visible;
-  padding: 19px 26px;
+  padding: 1vmin;
   pointer-events: auto;
   position: relative;
   text-align: center;

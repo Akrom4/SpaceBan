@@ -83,31 +83,19 @@ class SokoPacView {
     if (moveCountDiv) {
       moveCountDiv.textContent = "Moves: " + this.viewModel.model.moveCount;
     }
-  
+
     // Calculate the size of each square and the number of columns
     const numColumns = this.viewModel.model.squares[0].length;
     const squareSize = Math.min(90 / numColumns, 5); // Calculate size, but not larger than 5vmin
-  
+
     // Set grid template columns based on the number of columns
     boardDiv.style.gridTemplateColumns = `repeat(${numColumns}, ${squareSize}vmin)`;
-  
+
     // Render the grid cells
     boardDiv.innerHTML = this.toHTML(squareSize);
   }
-  
+
   // Grid rendering with dynamic square size
-  toHTML(squareSize) {
-    let content = "";
-    this.viewModel.model.squares.forEach((row) => {
-      row.forEach((square) => {
-        square = square === 6 ? 0 : square;
-        content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
-                      <div class="square square${square}" style="width: ${squareSize * 0.8}vmin; height: ${squareSize * 0.8}vmin;"></div>
-                    </div>`;
-      });
-    });
-    return content;
-  }
   toHTML(squareSize) {
     let content = "";
     this.viewModel.model.squares.forEach((row) => {
@@ -122,29 +110,67 @@ class SokoPacView {
     });
     return content;
   }
-  
 
+  //
+  renderStartMenu() {
+    let startMenuContent = `
+      <div id="startMenu">
+        <div id="playMode">
+          <button id="playButton" class="menu-button button">Play</button>
+          <button id="createMapButton" class="menu-button button">Create Map</button> <!-- Add this line -->
+        </div>
+      </div>
+    `;
+    document.getElementById("app").innerHTML = startMenuContent;
+    this.bindStartMenuEvents();
+  }
+  
+   //
+   bindStartMenuEvents() {
+    const buttons = document.querySelectorAll(".menu-button");
+    buttons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        switch (event.target.id) {
+          case 'createMapButton':
+            // Handle the 'Create Map' button click here
+            console.log('Create Map button clicked');
+            break;
+          case 'playButton': // Replace 'playButton' with the actual ID of your play button, if it has one
+            // Handle the 'Play' button click here
+            this.renderLevelSelectionMenu();
+            break;
+          // Add cases for other buttons as needed
+          default:
+            // Optional: Handle any other case or log an error
+            console.log('Unknown button clicked');
+            break;
+        }
+      });
+    });
+  }
+  
+  
   //
   renderLevelSelectionMenu() {
     const clearedLevels = this.viewModel.getClearedLevels();
     const totalLevels = Map.getTotalLevels();
-  
+
     let menuContent = `<div id="levelMenuContainer">
-                         <div id="menuHeader"><h2>Select Level</h2></div>
+                         <div id="menuHeader">Select Level</div>
                          <div id="levelSelection">`;
-  
+
     for (let level = 1; level <= totalLevels; level++) {
       const isCleared = clearedLevels.includes(level.toString());
       menuContent += `<button class="level-btn button ${
         isCleared ? "button-green" : ""
       }" data-level="${level}">${level}</button>`;
     }
-  
+
     menuContent += `</div></div>`;
     document.getElementById("app").innerHTML = menuContent;
     this.bindLevelSelectionEvents();
   }
-  
+
   //
   bindLevelSelectionEvents() {
     const levelButtons = document.querySelectorAll(".level-btn");
@@ -155,6 +181,7 @@ class SokoPacView {
       });
     });
   }
+
   // Win handling
   showWinMessage() {
     // Show a win message or screen to the player

@@ -1,5 +1,5 @@
 def parse_map(text):
-    # Define your mapping from characters to integers
+    # Define mapping from characters to integers used in SokoPac Game
     mapping = {'X': 3, ' ': 4, '*': 2, '.': 1, '@': 0}
     return [[mapping.get(char, 4) for char in line] for line in text.splitlines() if line.strip()]
 

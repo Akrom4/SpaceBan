@@ -56,8 +56,6 @@ class SokoPacModel {
       destination !== 3 &&
       this.isValidPosition(destinationRow, destinationColumn)
     ) {
-        this.moveHistory.push(JSON.parse(JSON.stringify(this.squares)));
-        this.moveCount++;
       // Handle Box Movement
       if (destination === 2 || destination === 5) {
         let nextDestinationRow = destinationRow + dirMove[1];
@@ -74,6 +72,8 @@ class SokoPacModel {
             nextDestination !== 2 &&
             nextDestination !== 5
           ) {
+            this.moveHistory.push(JSON.parse(JSON.stringify(this.squares)));
+            this.moveCount++;
             // Update current and next positions of the box
             this.squares[nextDestinationRow][nextDestinationColumn] =
               nextDestination === 1 ? 5 : 2;
@@ -84,6 +84,8 @@ class SokoPacModel {
           }
         }
       } else {
+        this.moveHistory.push(JSON.parse(JSON.stringify(this.squares)));
+        this.moveCount++;
         // Handle PacMan Movement
         this.squares[destinationRow][destinationColumn] =
           destination === 1 ? 6 : 0;
@@ -129,9 +131,9 @@ class SokoPacModel {
   winCondition() {
     let winConditionArray = [];
     for (let i = 0; i < this.squares.length; i++) {
-      for (let j = 0; j < this.squares[0].length; j++) {
-        if (this.squares[i][j] === 1) {
-          winConditionArray.push([i, j]); // Add dots coordinates to the winCondition array
+      for (let j = 0; j < this.squares[i].length; j++) {
+        if (this.squares[i][j] === 1 || this.squares[i][j] === 5) {
+          winConditionArray.push([i, j]); // Add dot and box-on-dot coordinates to the winCondition array
         }
       }
     }
