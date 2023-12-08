@@ -23,6 +23,8 @@ body {
   font-size: 3em;
   background-size: 200% auto;
   animation: shine 2s linear infinite;
+  text-align: center;
+  margin-bottom: 5vmin;
 }
 
 @keyframes shine {
@@ -34,6 +36,18 @@ body {
   }
 }
 
+.map-choice-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Space between buttons */
+  }
+  
+  
+  #createMapContainer {
+    margin-top: 1rem; /* Space above the create map button */
+    text-align: center; /* Center align the button */
+  }
+  
 #levelMenuContainer {
   display: flex;
   flex-direction: column;

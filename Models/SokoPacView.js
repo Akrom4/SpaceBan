@@ -115,9 +115,15 @@ class SokoPacView {
   renderStartMenu() {
     let startMenuContent = `
       <div id="startMenu">
-        <div id="playMode">
-          <button id="playButton" class="menu-button button">Play</button>
-          <button id="createMapButton" class="menu-button button">Create Map</button> <!-- Add this line -->
+        <div id="menuHeader">Map Collections</div>
+            <div id="mapChoices" class="map-choice-container">
+                <button id="original" class="menu-button button map-choice">Original</button>
+                <button id="autoGen" class="menu-button button map-choice">8x8 AI Generated</button>
+                <button id="tricky" class="menu-button button map-choice">Tricky Ones</button>
+            </div>
+            <div id="createMapContainer">
+                <button id="createMapButton" class="menu-button button">Create Map</button>
+            </div>
         </div>
       </div>
     `;
@@ -135,11 +141,12 @@ class SokoPacView {
             // Handle the 'Create Map' button click here
             console.log('Create Map button clicked');
             break;
-          case 'playButton': // Replace 'playButton' with the actual ID of your play button, if it has one
-            // Handle the 'Play' button click here
-            this.renderLevelSelectionMenu();
+          case 'original':
+          case 'autoGen':
+          case 'tricky':
+            // Pass the map collection option to the renderLevelSelectionMenu
+            this.renderLevelSelectionMenu(event.target.id);
             break;
-          // Add cases for other buttons as needed
           default:
             // Optional: Handle any other case or log an error
             console.log('Unknown button clicked');
