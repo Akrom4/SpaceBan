@@ -10,30 +10,71 @@ body {
   align-items: center;
   justify-content: center;
   background-color: #040338;
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
+
 #moveCount {
   background-color: #ffffff;
 }
-#menuHeader {
-  background: radial-gradient(#dbd800 20%, #ffa000 50%, #dbd800 80%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-size: 3em;
-  background-size: 200% auto;
-  animation: shine 2s linear infinite;
-  text-align: center;
-  margin-bottom: 5vmin;
+
+#startMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top:5vmin;
+}
+.glowingRGB{
+    background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+    border-radius: 2vmin;
+    cursor: default;
+    animation: animate 1.5s linear infinite;
+    margin-bottom: 15vmin;
+  }
+
+  .glowingRGB .display{
+    z-index: 999;
+    background: #1b1b1b;
+    border-radius: 10px;
+    text-align: center;
+  }
+  .display #menuTitle{
+    color: #fff;
+    font-size: 3.15em;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-left: 5vmin;
+    margin-right: 5vmin; 
+    background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate 1.5s linear infinite;
+  }
+  @keyframes animate {
+    100%{
+      filter: hue-rotate(360deg);
+    }
+  }
+
+  .glowingRGB span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 110%;
+    width: 101%;
+    border-radius: 10px;
+    background: inherit;
+    transform: translate(-50%, -50%);
+    z-index: -1;
 }
 
-@keyframes shine {
-  from {
-    background-position: 200% center;
-  }
-  to {
-    background-position: -200% center;
-  }
+.glowingRGB span:first-child {
+    filter: blur(7px);
+}
+
+.glowingRGB span:last-child {
+    filter: blur(20px);
 }
 
 .map-choice-container {
@@ -73,10 +114,7 @@ body {
   text-align: center;
   padding: 0;
 }
-#app {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#app {  
   width: 100%;
   height: 100%;
   padding: 0 1vmin;

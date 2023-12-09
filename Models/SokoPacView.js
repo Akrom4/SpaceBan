@@ -115,15 +115,20 @@ class SokoPacView {
   renderStartMenu() {
     let startMenuContent = `
       <div id="startMenu">
-        <div id="menuHeader">Map Collections</div>
-            <div id="mapChoices" class="map-choice-container">
-                <button id="original" class="menu-button button map-choice">Original</button>
-                <button id="autoGen" class="menu-button button map-choice">8x8 AI Generated</button>
-                <button id="tricky" class="menu-button button map-choice">Tricky Ones</button>
+        <div class="glowingRGB">
+            <span></span>
+            <span></span>
+            <div class="display">
+                <div id="menuTitle">MAP COLLECTIONS</div>
             </div>
-            <div id="createMapContainer">
-                <button id="createMapButton" class="menu-button button">Create Map</button>
-            </div>
+        </div>
+        <div id="mapChoices" class="map-choice-container">
+            <span></span><span></span><button id="original" class="menu-button button map-choice">Original</button>
+            <span></span><span></span><button id="autoGen" class="menu-button button map-choice">8x8 AI Generated</button>
+            <span></span><span></span><button id="tricky" class="menu-button button map-choice">Tricky Ones</button>
+        </div>
+        <div id="createMapContainer">
+            <button id="createMapButton" class="menu-button button">Create Map</button>
         </div>
       </div>
     `;
@@ -156,19 +161,24 @@ class SokoPacView {
     });
   }
   
-  
   //
   renderLevelSelectionMenu() {
     const clearedLevels = this.viewModel.getClearedLevels();
     const totalLevels = Map.getTotalLevels();
 
-    let menuContent = `<div id="levelMenuContainer">
-                         <div id="menuHeader">Select Level</div>
-                         <div id="levelSelection">`;
+    let menuContent = ` <div id="startMenu">
+                         <div class="glowingRGB">
+                            <span></span>
+                            <span></span>
+                            <div class="display">
+                                <div id="menuTitle">SELECT LEVEL</div>
+                            </div>
+                        </div>
+                        <div id="levelSelection">`;
 
     for (let level = 1; level <= totalLevels; level++) {
       const isCleared = clearedLevels.includes(level.toString());
-      menuContent += `<button class="level-btn button ${
+      menuContent += `<span></span><span></span><button class="level-btn button ${
         isCleared ? "button-green" : ""
       }" data-level="${level}">${level}</button>`;
     }
