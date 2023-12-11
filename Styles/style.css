@@ -78,6 +78,7 @@ body {
 }
 
 .map-choice-container {
+    width:100%;
     display: flex;
     justify-content: center;
     gap: 1rem; /* Space between buttons */
@@ -138,7 +139,7 @@ body {
   display: grid;
   justify-content: center;
   align-items: center;
-  gap: 2px; /* Adjust the gap between cells as needed */
+  gap: 0px; /* Adjust the gap between cells as needed */
 }
 
 .squareWrap {
@@ -164,172 +165,150 @@ body {
 
 /* Specific square types */
 .square0 {
-  background-image: url("../Images/pacmanAvatar.png");
+    position: relative;
+  /* background-image: url("../Images/robot.png"); */
 }
+
 .square1 {
+    position: absolute;
   width: 30%;
   height: 30%;
   border-radius: 50%;
-  background-color: #ffff00;
+  background-color: #fff;
+  box-shadow:
+    0 0 calc(var(--square-size) / 3) calc(var(--square-size) / 6) #fff,
+    0 0 calc(var(--square-size) / 2) calc(var(--square-size) / 4) #f0f,
+    0 0 calc(var(--square-size) / 1.5) calc(var(--square-size) / 3) #0ff;
 }
+
 .square2 {
-  background-image: url("../Images/gRed.png");
+  background-image: url("../Images/alien.png");
 }
 .square3 {
-  background-image: url("../Images/wall.png");
+    border-radius: 10px;
+    padding: 0;
+    background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+    animation: animate 1.5s linear infinite;
 }
+
+.square3-display {
+    background-color: #1b1b1b;
+    border-radius: 10px;
+    position: absolute;
+  top: 1%; /* Adjust size and position as needed */
+  left: 2%;
+  right: 2%;
+  bottom: 1%;
+    z-index: 999;
+}
+
+.square3 span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 103%;
+    height: 110%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background: inherit;
+    z-index: -1;
+}
+
+.square3 span:first-child {
+    filter: blur(7px);
+}
+
+.square3 span:last-child {
+    filter: blur(20px);
+}
+  
+  
+  
 .square4 {
   background-color: #000000;
 }
 .square5 {
-  background-image: url("../Images/gGreen.png");
+    align-items: center;
+  /* background-image: url("../Images/gGreen.png"); */
 }
+
+
+
+
 
 .button {
-  align-items: center;
-  appearance: none;
-  background-clip: padding-box;
-  background-color: initial;
-  background-image: none;
-  border-style: none;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  flex-direction: row;
-  flex-shrink: 0;
-  font-family: Eina01, sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  justify-content: center;
-  line-height: 24px;
-  margin: 1vmin;
-  margin-top: 2vmin;
-  min-height: 2vmin;
-  outline: none;
-  overflow: visible;
-  padding: 1vmin;
-  pointer-events: auto;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  text-transform: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
-  width: auto;
-  word-break: keep-all;
-  z-index: 0;
+    border-radius: 10px;
+    padding: 0;
+    margin: 5vmin;
+    font-size: 2.5em;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+    animation: animate 1.5s linear infinite;
+}
+.button-display:hover {
+    background-color: #333; /* Slightly different background color on hover */
 }
 
-.button:before,
-.button:after {
-  border-radius: 80px;
+.button-display:active {
+    background-color: #555; /* Darker background color when active/pressed */
+}
+.button-display {
+    background-color: #1b1b1b;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 999;
 }
 
-.button:before {
-  background-image: linear-gradient(92.83deg, #ff7426 0, #f93a13 100%);
-  content: "";
-  display: block;
-  height: 100%;
-  left: 0;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: -2;
+.button-content {
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 2vmin;
+    margin-right: 2vmin;
 }
 
-.button:after {
-  background-color: initial;
-  background-image: linear-gradient(#541a0f 0, #0c0d0d 100%);
-  bottom: 4px;
-  content: "";
-  display: block;
-  left: 4px;
-  overflow: hidden;
-  position: absolute;
-  right: 4px;
-  top: 4px;
-  transition: all 100ms ease-out;
-  z-index: -1;
+.button span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 103%;
+    height: 110%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background: inherit;
+    z-index: -1;
 }
 
-.button:hover:not(:disabled):before {
-  background: linear-gradient(
-    92.83deg,
-    rgb(255, 116, 38) 0%,
-    rgb(249, 58, 19) 100%
-  );
+.button span:first-child {
+    filter: blur(7px);
 }
 
-.button:hover:not(:disabled):after {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 0;
-  transition-timing-function: ease-in;
-  opacity: 0;
+.button span:last-child {
+    filter: blur(20px);
 }
 
-.button:active:not(:disabled) {
-  color: #ccc;
-}
-
-.button:active:not(:disabled):before {
-  background-image: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.2),
-      rgba(0, 0, 0, 0.2)
-    ),
-    linear-gradient(92.83deg, #ff7426 0, #f93a13 100%);
-}
-
-.button:active:not(:disabled):after {
-  background-image: linear-gradient(#541a0f 0, #0c0d0d 100%);
-  bottom: 4px;
-  left: 4px;
-  right: 4px;
-  top: 4px;
-}
-
-.button:disabled {
-  cursor: default;
-  opacity: 0.24;
-}
-
-.button-green:before {
-  background-image: linear-gradient(92.83deg, #32a852 0, #248c3b 100%);
-}
-
-.button-green:hover:not(:disabled):before {
-  background: linear-gradient(
-    92.83deg,
-    rgb(50, 168, 82) 0%,
-    rgb(36, 140, 59) 100%
-  );
-}
-
-.button-green:active:not(:disabled):before {
-  background-image: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.2),
-      rgba(0, 0, 0, 0.2)
-    ),
-    linear-gradient(92.83deg, #32a852 0, #248c3b 100%);
-}
-.button-green:after {
-  background-color: initial;
-  background-image: linear-gradient(#0f542c 0, #0c0d0d 100%);
-  bottom: 4px;
-  content: "";
-  display: block;
-  left: 4px;
-  overflow: hidden;
-  position: absolute;
-  right: 4px;
-  top: 4px;
-  transition: all 100ms ease-out;
-  z-index: -1;
-}
+.button-container {
+    display: flex;
+    max-width: 25%;
+    flex-direction: column;
+    align-items: center;
+    border-width: 2px; /* Adjust the width as needed */
+    border-image: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0) 1;
+    border-style:double;
+    border-radius: 10px;
+    padding: 2vmin;
+  }
+  
+  .button-description {
+    font-size: 1.75em;
+    color: #ADD8E6;
+    text-align: center;
+    margin-top: 0.5em;
+    text-align: justify;
+  }

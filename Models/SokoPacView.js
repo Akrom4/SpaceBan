@@ -86,7 +86,7 @@ class SokoPacView {
 
     // Calculate the size of each square and the number of columns
     const numColumns = this.viewModel.model.squares[0].length;
-    const squareSize = Math.min(90 / numColumns, 5); // Calculate size, but not larger than 5vmin
+    const squareSize = Math.min(90 / numColumns, 10); // Calculate size, but not larger than 5vmin
 
     // Set grid template columns based on the number of columns
     boardDiv.style.gridTemplateColumns = `repeat(${numColumns}, ${squareSize}vmin)`;
@@ -99,38 +99,107 @@ class SokoPacView {
   toHTML(squareSize) {
     let content = "";
     this.viewModel.model.squares.forEach((row) => {
-      row.forEach((square) => {
-        square = square === 6 ? 0 : square;
-        let sizeMultiplier = square === 1 ? 0.3 : 0.8; // Reduce size for square1
-        let adjustedSize = squareSize * sizeMultiplier;
-        content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
-                      <div class="square square${square}" style="width: ${adjustedSize}vmin; height: ${adjustedSize}vmin;"></div>
-                    </div>`;
-      });
+        row.forEach((square) => {
+            let sizeMultiplier = square === 1 ? 0.3 : 0.8; // Reduce size for square1
+            let adjustedSize = squareSize * sizeMultiplier;
+
+            if (square === 0) {
+                // Render an <img> for the robot inside square0 and then render square1 (dot)
+                content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+                                <div class="square square0" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
+                                    <img src="../Images/robot.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
+                                </div>
+                            </div>`;
+            } else if (square === 6) {
+                // Render an <img> for the robot inside square0 and then render square1 (dot)
+                content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+                                <div class="square square0" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
+                                    <img src="../Images/robot.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
+                                    <div class="square square1" style="width: ${squareSize * 0.3}vmin; height: ${squareSize * 0.3}vmin; z-index: 1; position: absolute;"></div>
+                                </div>
+                            </div>`;
+            }else if (square === 2) {
+                // Render an <img> for the robot inside square0 and then render square1 (dot)
+                content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+                                <div class="square square2" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
+                                    <img src="../Images/alienWin.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
+                                </div>
+                            </div>`;
+            } else if (square === 5) {
+                // Render an <img> for the robot inside square0 and then render square1 (dot)
+                content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+                                <div class="square square5" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
+                                    <img src="../Images/alien.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
+                                    <div class="square square1" style="width: ${squareSize * 0.3}vmin; height: ${squareSize * 0.3}vmin; z-index: 1; position: absolute;"></div>
+                                </div>
+                            </div>`;
+            
+            } else if (square === 3){
+                content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+                                <div class="square square${square}" style="width: ${adjustedSize}vmin; height: ${adjustedSize}vmin;">
+                                    <span></span><span></span>
+                                    <div class="square3-display">
+                                        <div class="square3-content"></div>
+                                    </div>
+                                </div>
+                            </div>`;
+            } else {
+                // Render other squares normally
+                content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+                                <div class="square square${square}" style="width: ${adjustedSize}vmin; height: ${adjustedSize}vmin;"></div>
+                            </div>`;
+            }
+        });
     });
     return content;
-  }
+}
+
 
   //
   renderStartMenu() {
     let startMenuContent = `
-      <div id="startMenu">
-        <div class="glowingRGB">
-            <span></span>
-            <span></span>
-            <div class="display">
-                <div id="menuTitle">MAP COLLECTIONS</div>
-            </div>
+    <div id="startMenu">
+    <div class="glowingRGB">
+        <span></span>
+        <span></span>
+        <div class="display">
+            <div id="menuTitle">SELECT COLLECTION</div>
         </div>
-        <div id="mapChoices" class="map-choice-container">
-            <span></span><span></span><button id="original" class="menu-button button map-choice">Original</button>
-            <span></span><span></span><button id="autoGen" class="menu-button button map-choice">8x8 AI Generated</button>
-            <span></span><span></span><button id="tricky" class="menu-button button map-choice">Tricky Ones</button>
+    </div>
+    <div id="mapChoices" class="map-choice-container">
+        <div class="button-container">
+            <button id="original" class="menu-button button map-choice">
+                <span></span>
+                <span></span>
+                <div class="button-display">
+                    <div class="button-content">Original</div>
+                </div>
+            </button>
+            <p class="button-description">Play the Classic Sokoban maps</p>
         </div>
-        <div id="createMapContainer">
-            <button id="createMapButton" class="menu-button button">Create Map</button>
+        <div class="button-container">
+            <button id="autoGen" class="menu-button button map-choice">
+                <span></span>
+                <span></span>
+                <div class="button-display">
+                    <div class="button-content">Auto Gen</div>
+                </div>
+            </button>
+            <p class="button-description">Despite their small size (8*8) and having only 3 boxes, these AI-assisted creations can be quite challenging !</p>
         </div>
-      </div>
+        <div class="button-container">
+            <button id="tricky" class="menu-button button map-choice">
+                <span></span>
+                <span></span>
+                <div class="button-display">
+                    <div class="button-content">Yoshio</div>
+                </div>
+            </button>
+            <p class="button-description">Enjoy the intricately designed layouts created by Yoshio Murase</p>
+        </div>
+    </div>
+  </div>
+  
     `;
     document.getElementById("app").innerHTML = startMenuContent;
     this.bindStartMenuEvents();
@@ -141,13 +210,18 @@ class SokoPacView {
     const buttons = document.querySelectorAll(".menu-button");
     buttons.forEach((button) => {
       button.addEventListener("click", (event) => {
-        switch (event.target.id) {
+        console.log(event.currentTarget.id);
+        switch (event.currentTarget.id) {
           case 'createMapButton':
             // Handle the 'Create Map' button click here
             console.log('Create Map button clicked');
             break;
           case 'original':
+            this.renderLevelSelectionMenu(event.target.id);
+            break;
           case 'autoGen':
+            this.renderLevelSelectionMenu(event.target.id);
+            break;
           case 'tricky':
             // Pass the map collection option to the renderLevelSelectionMenu
             this.renderLevelSelectionMenu(event.target.id);
@@ -178,7 +252,7 @@ class SokoPacView {
 
     for (let level = 1; level <= totalLevels; level++) {
       const isCleared = clearedLevels.includes(level.toString());
-      menuContent += `<span></span><span></span><button class="level-btn button ${
+      menuContent += `<button class="level-btn button ${
         isCleared ? "button-green" : ""
       }" data-level="${level}">${level}</button>`;
     }
@@ -204,6 +278,6 @@ class SokoPacView {
     // Show a win message or screen to the player
     setTimeout(() => {
       alert("Congratulations! You've won!");
-    }, "1");
+    }, "100");
   }
 }
