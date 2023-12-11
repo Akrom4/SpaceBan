@@ -67,7 +67,7 @@ class SokoPacViewModel {
   // Restart the game to it's initial state
   handleReset() {
     this.model.resetBoard();
-    this.view.bindKeyEvents();
+    this.view.initUI();
     this.view.updateUI();
   }
   //

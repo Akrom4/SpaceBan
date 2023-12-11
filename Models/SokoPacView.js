@@ -3,21 +3,29 @@
  * Handles the user interface rendering
  */
 class SokoPacView {
-  constructor(viewModel) {
-    this.viewModel = viewModel; // Bind the ViewModel to the View
-    this.keyEvent = this.keyEvent.bind(this); // Bind keyEvent to the object, enables the possibility to remove an arrow function from the event listener
-  }
-
-  // Create the menu and the event listeners
-  initUI() {
-    document.getElementById("app").innerHTML = this.userInterface();
-    this.bindKeyEvents();
-    this.addResetEvent();
-    this.addMenuEvent();
-    this.addUndoEvent();
-  }
-
-  // Add the gameMenu and the gameGrid divs
+    constructor(viewModel) {
+      this.viewModel = viewModel;
+      this.keyEvent = this.keyEvent.bind(this);
+  this.handleButtonClick = this.handleButtonClick.bind(this);
+      // Add a new property to keep track if the grid has been initialized
+      this.gridInitialized = false;
+    }
+  
+    initUI() {
+      this.renderUI("app", this.userInterface());
+      this.initializeGrid();
+      this.bindEvents();
+    }
+  
+    initializeGrid() {
+      const boardDiv = document.getElementById("gameGrid");
+      const numColumns = this.viewModel.model.squares[0].length;
+      const squareSize = Math.min(90 / numColumns, 10); // Calculate size, but not larger than 5vmin
+      boardDiv.style.gridTemplateColumns = `repeat(${numColumns}, ${squareSize}vmin)`;
+      this.gridInitialized = true;
+    }
+  
+    // Add the gameMenu and the gameGrid divs
   userInterface() {
     let content = ` <div id="gameInfo">
                           <button id="menu" class="button button-green">Menu</button>
@@ -29,55 +37,42 @@ class SokoPacView {
                     `;
     return content;
   }
-
-  // Keyboard arrows event listeners
-  keyEvent(event) {
-    switch (event.key) {
-      case "ArrowLeft":
-        this.viewModel.handleMove([-1, 0]);
-        break;
-      case "ArrowRight":
-        this.viewModel.handleMove([1, 0]);
-        break;
-      case "ArrowUp":
-        this.viewModel.handleMove([0, -1]);
-        break;
-      case "ArrowDown":
-        this.viewModel.handleMove([0, 1]);
-        break;
-    }
-  }
-
-  // Add the keyboard arrows event listeners
-  bindKeyEvents() {
+  
+  bindEvents() {
+    const app = document.getElementById("app");
+  
+    // Remove existing event listeners
+    app.removeEventListener("click", this.handleButtonClick);
+    window.removeEventListener("keydown", this.keyEvent);
+  
+    // Add event listeners
+    app.addEventListener("click", this.handleButtonClick);
     window.addEventListener("keydown", this.keyEvent);
   }
-
-  // Remove the keyboard arrows event listeners
   removeKeyEvents() {
     window.removeEventListener("keydown", this.keyEvent);
   }
-
-  // Add the reset event listener on the reset button
-  addResetEvent() {
-    document.getElementById("reset").addEventListener("click", () => {
-      this.viewModel.handleReset();
-    });
-  }
-
-  //
-  addMenuEvent() {
-    document.getElementById("menu").addEventListener("click", () => {
-      this.viewModel.handleMenu();
-    });
-  }
-  //
-  addUndoEvent() {
-    document.getElementById("undo").addEventListener("click", () => {
-      this.viewModel.handleUndo();
-    });
-  }
+  
+    handleButtonClick(event) {
+      const { id } = event.target;
+      if (id === 'reset') this.viewModel.handleReset();
+      else if (id === 'menu') this.viewModel.handleMenu();
+      else if (id === 'undo') this.viewModel.handleUndo();
+    }
+  
+    keyEvent(event) {
+      const moveMap = { "ArrowLeft": [-1, 0], "ArrowRight": [1, 0], "ArrowUp": [0, -1], "ArrowDown": [0, 1] };
+      if (moveMap[event.key]) this.viewModel.handleMove(moveMap[event.key]);
+    }
+  
+    renderUI(targetId, content) {
+      document.getElementById(targetId).innerHTML = content;
+    }
+ 
   updateUI() {
+    if (!this.gridInitialized) {
+        this.initializeGrid();
+      }
     const boardDiv = document.getElementById("gameGrid");
     const moveCountDiv = document.getElementById("moveCount");
     if (moveCountDiv) {
@@ -157,52 +152,40 @@ class SokoPacView {
 
   //
   renderStartMenu() {
-    let startMenuContent = `
-    <div id="startMenu">
-    <div class="glowingRGB">
-        <span></span>
-        <span></span>
-        <div class="display">
+    const menuOptions = [
+      { id: "original", text: "Original", description: "Play the Classic Sokoban maps" },
+      { id: "autoGen", text: "Auto Gen", description: "AI-assisted creations can be quite challenging!" },
+      { id: "tricky", text: "Yoshio", description: "Enjoy layouts created by Yoshio Murase" }
+    ];
+
+    let menuContent = `
+      <div id="startMenu">
+        <div class="glowingRGB">
+          <span></span><span></span>
+          <div class="display">
             <div id="menuTitle">SELECT COLLECTION</div>
+          </div>
         </div>
-    </div>
-    <div id="mapChoices" class="map-choice-container">
-        <div class="button-container">
-            <button id="original" class="menu-button button map-choice">
-                <span></span>
-                <span></span>
-                <div class="button-display">
-                    <div class="button-content">Original</div>
-                </div>
-            </button>
-            <p class="button-description">Play the Classic Sokoban maps</p>
+        <div id="mapChoices" class="map-choice-container">
+          ${menuOptions.map(option => this.createMenuButton(option)).join('')}
         </div>
-        <div class="button-container">
-            <button id="autoGen" class="menu-button button map-choice">
-                <span></span>
-                <span></span>
-                <div class="button-display">
-                    <div class="button-content">Auto Gen</div>
-                </div>
-            </button>
-            <p class="button-description">Despite their small size (8*8) and having only 3 boxes, these AI-assisted creations can be quite challenging !</p>
-        </div>
-        <div class="button-container">
-            <button id="tricky" class="menu-button button map-choice">
-                <span></span>
-                <span></span>
-                <div class="button-display">
-                    <div class="button-content">Yoshio</div>
-                </div>
-            </button>
-            <p class="button-description">Enjoy the intricately designed layouts created by Yoshio Murase</p>
-        </div>
-    </div>
-  </div>
-  
-    `;
-    document.getElementById("app").innerHTML = startMenuContent;
+      </div>`;
+
+    this.renderUI("app", menuContent);
     this.bindStartMenuEvents();
+  }
+
+  createMenuButton({ id, text, description }) {
+    return `
+      <div class="button-container">
+        <button id="${id}" class="menu-button button map-choice">
+          <span></span><span></span>
+          <div class="button-display">
+            <div class="button-content">${text}</div>
+          </div>
+        </button>
+        <p class="button-description">${description}</p>
+      </div>`;
   }
   
    //
