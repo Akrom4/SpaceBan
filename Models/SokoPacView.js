@@ -3,29 +3,29 @@
  * Handles the user interface rendering
  */
 class SokoPacView {
-    constructor(viewModel) {
-      this.viewModel = viewModel;
-      this.keyEvent = this.keyEvent.bind(this);
-  this.handleButtonClick = this.handleButtonClick.bind(this);
-      // Add a new property to keep track if the grid has been initialized
-      this.gridInitialized = false;
-    }
-  
-    initUI() {
-      this.renderUI("app", this.userInterface());
-      this.initializeGrid();
-      this.bindEvents();
-    }
-  
-    initializeGrid() {
-      const boardDiv = document.getElementById("gameGrid");
-      const numColumns = this.viewModel.model.squares[0].length;
-      const squareSize = Math.min(90 / numColumns, 10); // Calculate size, but not larger than 5vmin
-      boardDiv.style.gridTemplateColumns = `repeat(${numColumns}, ${squareSize}vmin)`;
-      this.gridInitialized = true;
-    }
-  
-    // Add the gameMenu and the gameGrid divs
+  constructor(viewModel) {
+    this.viewModel = viewModel;
+    this.keyEvent = this.keyEvent.bind(this);
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+    // Add a new property to keep track if the grid has been initialized
+    this.gridInitialized = false;
+  }
+
+  initUI() {
+    this.renderUI("app", this.userInterface());
+    this.initializeGrid();
+    this.bindEvents();
+  }
+
+  initializeGrid() {
+    const boardDiv = document.getElementById("gameGrid");
+    const numColumns = this.viewModel.model.squares[0].length;
+    const squareSize = Math.min(90 / numColumns, 10); // Calculate size, but not larger than 5vmin
+    boardDiv.style.gridTemplateColumns = `repeat(${numColumns}, ${squareSize}vmin)`;
+    this.gridInitialized = true;
+  }
+
+  // Add the gameMenu and the gameGrid divs
   userInterface() {
     let content = ` <div id="gameInfo">
                           <button id="menu" class="button button-green">Menu</button>
@@ -37,14 +37,14 @@ class SokoPacView {
                     `;
     return content;
   }
-  
+
   bindEvents() {
     const app = document.getElementById("app");
-  
+
     // Remove existing event listeners
     app.removeEventListener("click", this.handleButtonClick);
     window.removeEventListener("keydown", this.keyEvent);
-  
+
     // Add event listeners
     app.addEventListener("click", this.handleButtonClick);
     window.addEventListener("keydown", this.keyEvent);
@@ -52,27 +52,27 @@ class SokoPacView {
   removeKeyEvents() {
     window.removeEventListener("keydown", this.keyEvent);
   }
-  
-    handleButtonClick(event) {
-      const { id } = event.target;
-      if (id === 'reset') this.viewModel.handleReset();
-      else if (id === 'menu') this.viewModel.handleMenu();
-      else if (id === 'undo') this.viewModel.handleUndo();
-    }
-  
-    keyEvent(event) {
-      const moveMap = { "ArrowLeft": [-1, 0], "ArrowRight": [1, 0], "ArrowUp": [0, -1], "ArrowDown": [0, 1] };
-      if (moveMap[event.key]) this.viewModel.handleMove(moveMap[event.key]);
-    }
-  
-    renderUI(targetId, content) {
-      document.getElementById(targetId).innerHTML = content;
-    }
- 
+
+  handleButtonClick(event) {
+    const { id } = event.target;
+    if (id === 'reset') this.viewModel.handleReset();
+    else if (id === 'menu') this.viewModel.handleMenu();
+    else if (id === 'undo') this.viewModel.handleUndo();
+  }
+
+  keyEvent(event) {
+    const moveMap = { "ArrowLeft": [-1, 0], "ArrowRight": [1, 0], "ArrowUp": [0, -1], "ArrowDown": [0, 1] };
+    if (moveMap[event.key]) this.viewModel.handleMove(moveMap[event.key]);
+  }
+
+  renderUI(targetId, content) {
+    document.getElementById(targetId).innerHTML = content;
+  }
+
   updateUI() {
     if (!this.gridInitialized) {
-        this.initializeGrid();
-      }
+      this.initializeGrid();
+    }
     const boardDiv = document.getElementById("gameGrid");
     const moveCountDiv = document.getElementById("moveCount");
     if (moveCountDiv) {
@@ -94,43 +94,43 @@ class SokoPacView {
   toHTML(squareSize) {
     let content = "";
     this.viewModel.model.squares.forEach((row) => {
-        row.forEach((square) => {
-            let sizeMultiplier = square === 1 ? 0.3 : 0.8; // Reduce size for square1
-            let adjustedSize = squareSize * sizeMultiplier;
+      row.forEach((square) => {
+        let sizeMultiplier = square === 1 ? 0.3 : 0.8; // Reduce size for square1
+        let adjustedSize = squareSize * sizeMultiplier;
 
-            if (square === 0) {
-                // Render an <img> for the robot inside square0 and then render square1 (dot)
-                content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+        if (square === 0) {
+          // Render an <img> for the robot inside square0 and then render square1 (dot)
+          content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square0" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
                                     <img src="../Images/robot.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
                                 </div>
                             </div>`;
-            } else if (square === 6) {
-                // Render an <img> for the robot inside square0 and then render square1 (dot)
-                content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+        } else if (square === 6) {
+          // Render an <img> for the robot inside square0 and then render square1 (dot)
+          content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square0" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
                                     <img src="../Images/robot.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
                                     <div class="square square1" style="width: ${squareSize * 0.3}vmin; height: ${squareSize * 0.3}vmin; z-index: 1; position: absolute;"></div>
                                 </div>
                             </div>`;
-            }else if (square === 2) {
-                // Render an <img> for the robot inside square0 and then render square1 (dot)
-                content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+        } else if (square === 2) {
+          // Render an <img> for the robot inside square0 and then render square1 (dot)
+          content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square2" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
                                     <img src="../Images/alienWin.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
                                 </div>
                             </div>`;
-            } else if (square === 5) {
-                // Render an <img> for the robot inside square0 and then render square1 (dot)
-                content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+        } else if (square === 5) {
+          // Render an <img> for the robot inside square0 and then render square1 (dot)
+          content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square5" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
                                     <img src="../Images/alien.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
                                     <div class="square square1" style="width: ${squareSize * 0.3}vmin; height: ${squareSize * 0.3}vmin; z-index: 1; position: absolute;"></div>
                                 </div>
                             </div>`;
-            
-            } else if (square === 3){
-                content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+
+        } else if (square === 3) {
+          content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square${square}" style="width: ${adjustedSize}vmin; height: ${adjustedSize}vmin;">
                                     <span></span><span></span>
                                     <div class="square3-display">
@@ -138,16 +138,16 @@ class SokoPacView {
                                     </div>
                                 </div>
                             </div>`;
-            } else {
-                // Render other squares normally
-                content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
+        } else {
+          // Render other squares normally
+          content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square${square}" style="width: ${adjustedSize}vmin; height: ${adjustedSize}vmin;"></div>
                             </div>`;
-            }
-        });
+        }
+      });
     });
     return content;
-}
+  }
 
 
   //
@@ -187,9 +187,9 @@ class SokoPacView {
         <p class="button-description">${description}</p>
       </div>`;
   }
-  
-   //
-   bindStartMenuEvents() {
+
+  //
+  bindStartMenuEvents() {
     const buttons = document.querySelectorAll(".menu-button");
     buttons.forEach((button) => {
       button.addEventListener("click", (event) => {
@@ -217,7 +217,7 @@ class SokoPacView {
       });
     });
   }
-  
+
   //
   renderLevelSelectionMenu() {
     const clearedLevels = this.viewModel.getClearedLevels();
@@ -235,9 +235,16 @@ class SokoPacView {
 
     for (let level = 1; level <= totalLevels; level++) {
       const isCleared = clearedLevels.includes(level.toString());
-      menuContent += `<button class="level-btn button ${
-        isCleared ? "button-green" : ""
-      }" data-level="${level}">${level}</button>`;
+      menuContent += `<div class="square3-container">
+                                            <button class="level-btn button ${isCleared ? "button-win" : ""
+        }" data-level="${level}">
+                                            <span></span>
+                                            <span></span>
+                                            <div class="button-display">
+                                              <div class="button-content">${level.toString().padStart(2, '0')}</div>
+                                            </div>
+                                          </button>
+                                        </div>`;
     }
 
     menuContent += `</div></div>`;
@@ -250,7 +257,8 @@ class SokoPacView {
     const levelButtons = document.querySelectorAll(".level-btn");
     levelButtons.forEach((button) => {
       button.addEventListener("click", (event) => {
-        const selectedLevel = event.target.getAttribute("data-level");
+        const selectedLevel = event.currentTarget.dataset.level;
+        console.log(selectedLevel);
         this.viewModel.handleLevelSelection(selectedLevel);
       });
     });

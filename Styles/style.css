@@ -1,5 +1,6 @@
 :root {
-  --square-size: 5vmin; /* Default square size */
+  --square-size: 5vmin;
+  /* Default square size */
 }
 
 body {
@@ -18,78 +19,84 @@ body {
 }
 
 #startMenu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    margin-top:5vmin;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 5vmin;
 }
-.glowingRGB{
-    background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
-    border-radius: 2vmin;
-    cursor: default;
-    animation: animate 1.5s linear infinite;
-    margin-bottom: 15vmin;
-  }
 
-  .glowingRGB .display{
-    z-index: 999;
-    background: #1b1b1b;
-    border-radius: 10px;
-    text-align: center;
-  }
-  .display #menuTitle{
-    color: #fff;
-    font-size: 3.15em;
-    font-weight: 600;
-    letter-spacing: 1px;
-    margin-left: 5vmin;
-    margin-right: 5vmin; 
-    background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: animate 1.5s linear infinite;
-  }
-  @keyframes animate {
-    100%{
-      filter: hue-rotate(360deg);
-    }
-  }
+.glowingRGB {
+  background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+  border-radius: 2vmin;
+  cursor: default;
+  animation: animate 1.5s linear infinite;
+  margin-bottom: 15vmin;
+}
 
-  .glowingRGB span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 110%;
-    width: 101%;
-    border-radius: 10px;
-    background: inherit;
-    transform: translate(-50%, -50%);
-    z-index: -1;
+.glowingRGB .display {
+  z-index: 999;
+  background: #1b1b1b;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.display #menuTitle {
+  color: #fff;
+  font-size: 3.15em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-left: 5vmin;
+  margin-right: 5vmin;
+  background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animate 1.5s linear infinite;
+}
+
+@keyframes animate {
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.glowingRGB span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 110%;
+  width: 101%;
+  border-radius: 10px;
+  background: inherit;
+  transform: translate(-50%, -50%);
+  z-index: -1;
 }
 
 .glowingRGB span:first-child {
-    filter: blur(7px);
+  filter: blur(7px);
 }
 
 .glowingRGB span:last-child {
-    filter: blur(20px);
+  filter: blur(20px);
 }
 
 .map-choice-container {
-    width:100%;
-    display: flex;
-    justify-content: center;
-    gap: 1rem; /* Space between buttons */
-  }
-  
-  
-  #createMapContainer {
-    margin-top: 1rem; /* Space above the create map button */
-    text-align: center; /* Center align the button */
-  }
-  
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  /* Space between buttons */
+}
+
+
+#createMapContainer {
+  margin-top: 1rem;
+  /* Space above the create map button */
+  text-align: center;
+  /* Center align the button */
+}
+
 #levelMenuContainer {
   display: flex;
   flex-direction: column;
@@ -115,7 +122,8 @@ body {
   text-align: center;
   padding: 0;
 }
-#app {  
+
+#app {
   width: 100%;
   height: 100%;
   padding: 0 1vmin;
@@ -139,7 +147,8 @@ body {
   display: grid;
   justify-content: center;
   align-items: center;
-  gap: 0px; /* Adjust the gap between cells as needed */
+  gap: 0px;
+  /* Adjust the gap between cells as needed */
 }
 
 .squareWrap {
@@ -165,12 +174,12 @@ body {
 
 /* Specific square types */
 .square0 {
-    position: relative;
+  position: relative;
   /* background-image: url("../Images/robot.png"); */
 }
 
 .square1 {
-    position: absolute;
+  position: absolute;
   width: 30%;
   height: 30%;
   border-radius: 50%;
@@ -184,131 +193,133 @@ body {
 .square2 {
   background-image: url("../Images/alien.png");
 }
+
 .square3 {
-    border-radius: 10px;
-    padding: 0;
-    background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
-    animation: animate 1.5s linear infinite;
+  border-radius: 10px;
+  padding: 0;
+  background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+  animation: animate 1.5s linear infinite;
 }
 
 .square3-display {
-    background-color: #1b1b1b;
-    border-radius: 10px;
-    position: absolute;
-  top: 1%; /* Adjust size and position as needed */
+  background-color: #1b1b1b;
+  border-radius: 10px;
+  position: absolute;
+  top: 1%;
+  /* Adjust size and position as needed */
   left: 2%;
   right: 2%;
   bottom: 1%;
-    z-index: 999;
+  z-index: 999;
 }
 
 .square3 span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 103%;
-    height: 110%;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-    background: inherit;
-    z-index: -1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 103%;
+  height: 110%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background: inherit;
+  z-index: -1;
 }
 
 .square3 span:first-child {
-    filter: blur(7px);
+  filter: blur(7px);
 }
 
 .square3 span:last-child {
-    filter: blur(20px);
+  filter: blur(20px);
 }
-  
-  
-  
+
 .square4 {
   background-color: #000000;
 }
+
 .square5 {
-    align-items: center;
+  align-items: center;
   /* background-image: url("../Images/gGreen.png"); */
 }
 
-
-
-
-
 .button {
-    border-radius: 10px;
-    padding: 0;
-    margin: 5vmin;
-    font-size: 2.5em;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
-    animation: animate 1.5s linear infinite;
+  border-radius: 10px;
+  padding: 0;
+  margin: 2vmin;
+  font-size: 2.5em;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+  animation: animate 1.5s linear infinite;
 }
+
 .button-display:hover {
-    background-color: #333; /* Slightly different background color on hover */
+  background-color: #333;
+  /* Slightly different background color on hover */
 }
 
 .button-display:active {
-    background-color: #555; /* Darker background color when active/pressed */
+  background-color: #555;
+  /* Darker background color when active/pressed */
 }
+
 .button-display {
-    background-color: #1b1b1b;
-    border-radius: 10px;
-    text-align: center;
-    z-index: 999;
+  background-color: #1b1b1b;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 999;
 }
 
 .button-content {
-    color: #fff;
-    font-weight: 600;
-    letter-spacing: 1px;
-    background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-left: 2vmin;
-    margin-right: 2vmin;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-left: 2vmin;
+  margin-right: 2vmin;
 }
 
 .button span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 103%;
-    height: 110%;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-    background: inherit;
-    z-index: -1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 103%;
+  height: 110%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background: inherit;
+  z-index: -1;
 }
 
 .button span:first-child {
-    filter: blur(7px);
+  filter: blur(7px);
 }
 
 .button span:last-child {
-    filter: blur(20px);
+  filter: blur(20px);
 }
 
 .button-container {
-    display: flex;
-    max-width: 25%;
-    flex-direction: column;
-    align-items: center;
-    border-width: 2px; /* Adjust the width as needed */
-    border-image: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0) 1;
-    border-style:double;
-    border-radius: 10px;
-    padding: 2vmin;
-  }
-  
-  .button-description {
-    font-size: 1.75em;
-    color: #ADD8E6;
-    text-align: center;
-    margin-top: 0.5em;
-    text-align: justify;
-  }
+  display: flex;
+  max-width: 25%;
+  flex-direction: column;
+  align-items: center;
+  border-width: 2px;
+  /* Adjust the width as needed */
+  border-image: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0) 1;
+  border-style: double;
+  border-radius: 10px;
+  padding: 2vmin;
+}
+
+.button-description {
+  font-size: 1.75em;
+  color: #ADD8E6;
+  text-align: center;
+  margin-top: 0.5em;
+  text-align: justify;
+}
