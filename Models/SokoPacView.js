@@ -6,36 +6,48 @@ class SokoPacView {
   constructor(viewModel) {
     this.viewModel = viewModel;
     this.keyEvent = this.keyEvent.bind(this);
-    this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.bindButtonEvents = this.bindButtonEvents.bind(this);
     // Add a new property to keep track if the grid has been initialized
     this.gridInitialized = false;
   }
 
   initUI() {
     this.renderUI("app", this.userInterface());
-    this.initializeGrid();
-    this.bindEvents();
-  }
-
-  initializeGrid() {
-    const boardDiv = document.getElementById("gameGrid");
-    const numColumns = this.viewModel.model.squares[0].length;
-    const squareSize = Math.min(90 / numColumns, 10); // Calculate size, but not larger than 5vmin
-    boardDiv.style.gridTemplateColumns = `repeat(${numColumns}, ${squareSize}vmin)`;
     this.gridInitialized = true;
+    this.bindButtonEvents();
+    this.bindEvents();
   }
 
   // Add the gameMenu and the gameGrid divs
   userInterface() {
-    let content = ` <div id="gameInfo">
-                          <button id="menu" class="button button-green">Menu</button>
-                          <button id="undo" class="button">Undo</button>
-                          <button id="reset" class="button">Reset</button>
-                          <div id="moveCount"></div>
-                      </div>                      
-                      <div id="gameGrid"></div>
-                    `;
+    let content = `
+      <div id="gameContainer" class="game-container">
+        <div id="gameGrid" class="game-grid"></div>
+        <div id="actions" class="actions">
+          <div class="nav">
+            ${this.createUIButton({ id: "levels", text: "Collections" })}
+            ${this.createUIButton({ id: "collections", text: "Levels" })}
+          </div>
+          <div class="boardActions">
+            ${this.createUIButton({ id: "undo", text: "Undo" })}
+            ${this.createUIButton({ id: "reset", text: "Reset" })}
+          </div>
+        </div>
+      </div>
+    `;
     return content;
+  }
+  
+  createUIButton({ id, text }) {
+    return `
+      <div class="square3-container">
+        <button id="${id}" class="button">
+          <span></span><span></span>
+          <div class="button-display">
+            <div class="button-content">${text}</div>
+          </div>
+        </button>
+      </div>`;
   }
 
   bindEvents() {
@@ -51,14 +63,33 @@ class SokoPacView {
   }
   removeKeyEvents() {
     window.removeEventListener("keydown", this.keyEvent);
-  }
+  } 
 
-  handleButtonClick(event) {
-    const { id } = event.target;
-    if (id === 'reset') this.viewModel.handleReset();
-    else if (id === 'menu') this.viewModel.handleMenu();
-    else if (id === 'undo') this.viewModel.handleUndo();
+  bindButtonEvents() {
+    const levelsButton = document.getElementById("levels");
+    const collectionsButton = document.getElementById("collections");
+    const undoButton = document.getElementById("undo");
+    const resetButton = document.getElementById("reset");
+
+    levelsButton.addEventListener("click", () => {
+      // Handle the 'Collections' button click here
+      this.renderStartMenu();
+    });
+    
+    collectionsButton.addEventListener("click", () => {
+      // Handle the 'Levels' button click here
+      this.renderLevelSelectionMenu();
+    });
+
+    undoButton.addEventListener("click", () => {
+      this.viewModel.handleUndo(); // Call the appropriate view model method
+    });
+
+    resetButton.addEventListener("click", () => {
+      this.viewModel.handleReset(); // Call the appropriate view model method
+    });
   }
+  
 
   keyEvent(event) {
     const moveMap = { "ArrowLeft": [-1, 0], "ArrowRight": [1, 0], "ArrowUp": [0, -1], "ArrowDown": [0, 1] };
@@ -79,9 +110,16 @@ class SokoPacView {
       moveCountDiv.textContent = "Moves: " + this.viewModel.model.moveCount;
     }
 
-    // Calculate the size of each square and the number of columns
+    // Calculate the number of columns and rows
     const numColumns = this.viewModel.model.squares[0].length;
-    const squareSize = Math.min(90 / numColumns, 10); // Calculate size, but not larger than 5vmin
+    const numRows = this.viewModel.model.squares.length;
+
+    // Determine whether the board is longer in horizontal or vertical orientation
+    const isHorizontal = numColumns >= numRows;
+
+    // Calculate squareSize based on the longer dimension
+    const maxDimension = isHorizontal ? numColumns : numRows;
+    const squareSize = Math.min(90 / maxDimension, 7); // Calculate size, but not larger than 5vmin
 
     // Set grid template columns based on the number of columns
     boardDiv.style.gridTemplateColumns = `repeat(${numColumns}, ${squareSize}vmin)`;
@@ -239,8 +277,7 @@ class SokoPacView {
                                             <button class="level-btn button " data-level="${level}">
                                             <span></span>
                                             <span></span>
-                                            <div class=" ${isCleared ? "button-win" : "button-display"
-                                          }">
+                                            <div class=" ${isCleared ? "button-win" : "button-display"}">
                                               <div class="button-content">${level.toString().padStart(2, '0')}</div>
                                             </div>
                                           </button>
