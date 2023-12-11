@@ -236,11 +236,11 @@ class SokoPacView {
     for (let level = 1; level <= totalLevels; level++) {
       const isCleared = clearedLevels.includes(level.toString());
       menuContent += `<div class="square3-container">
-                                            <button class="level-btn button ${isCleared ? "button-win" : ""
-        }" data-level="${level}">
+                                            <button class="level-btn button " data-level="${level}">
                                             <span></span>
                                             <span></span>
-                                            <div class="button-display">
+                                            <div class=" ${isCleared ? "button-win" : "button-display"
+                                          }">
                                               <div class="button-content">${level.toString().padStart(2, '0')}</div>
                                             </div>
                                           </button>

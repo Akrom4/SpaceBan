@@ -264,8 +264,25 @@ body {
   /* Darker background color when active/pressed */
 }
 
+
 .button-display {
   background-color: #1b1b1b;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 999;
+}
+
+.button-win:hover {
+  background-color: #333;
+  /* Slightly different background color on hover */
+}
+
+.button-win:active {
+  background-color: #555;
+  /* Darker background color when active/pressed */
+}
+.button-win {
+  background-color: #0ff;
   border-radius: 10px;
   text-align: center;
   z-index: 999;
@@ -287,8 +304,8 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 103%;
-  height: 110%;
+  width: calc(100% + 0.5vmin);
+  height: calc(100% + 0.2vmin);
   transform: translate(-50%, -50%);
   border-radius: 10px;
   background: inherit;
@@ -323,3 +340,4 @@ body {
   margin-top: 0.5em;
   text-align: justify;
 }
+
