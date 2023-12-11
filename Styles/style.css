@@ -273,16 +273,16 @@ body {
 }
 
 .button-win:hover {
-  background-color: #333;
+  background-color: #d1d1d1;
   /* Slightly different background color on hover */
 }
 
 .button-win:active {
-  background-color: #555;
+  background-color: #797979;
   /* Darker background color when active/pressed */
 }
 .button-win {
-  background-color: #0ff;
+  background-color: #ffffff;
   border-radius: 10px;
   text-align: center;
   z-index: 999;
