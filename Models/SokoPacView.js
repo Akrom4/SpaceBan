@@ -7,7 +7,6 @@ class SokoPacView {
     this.viewModel = viewModel;
     this.keyEvent = this.keyEvent.bind(this);
     this.bindButtonEvents = this.bindButtonEvents.bind(this);
-    // Add a new property to keep track if the grid has been initialized
     this.gridInitialized = false;
   }
 
@@ -37,7 +36,7 @@ class SokoPacView {
     `;
     return content;
   }
-  
+
   createUIButton({ id, text }) {
     return `
       <div class="square3-container">
@@ -63,7 +62,7 @@ class SokoPacView {
   }
   removeKeyEvents() {
     window.removeEventListener("keydown", this.keyEvent);
-  } 
+  }
 
   bindButtonEvents() {
     const levelsButton = document.getElementById("levels");
@@ -75,7 +74,7 @@ class SokoPacView {
       // Handle the 'Collections' button click here
       this.renderStartMenu();
     });
-    
+
     collectionsButton.addEventListener("click", () => {
       // Handle the 'Levels' button click here
       this.renderLevelSelectionMenu();
@@ -89,7 +88,7 @@ class SokoPacView {
       this.viewModel.handleReset(); // Call the appropriate view model method
     });
   }
-  
+
 
   keyEvent(event) {
     const moveMap = { "ArrowLeft": [-1, 0], "ArrowRight": [1, 0], "ArrowUp": [0, -1], "ArrowDown": [0, 1] };
@@ -191,9 +190,9 @@ class SokoPacView {
   //
   renderStartMenu() {
     const menuOptions = [
-      { id: "original", text: "Original", description: "Play the Classic Sokoban maps" },
-      { id: "autoGen", text: "Auto Gen", description: "AI-assisted creations can be quite challenging!" },
-      { id: "tricky", text: "Yoshio", description: "Enjoy layouts created by Yoshio Murase" }
+      { id: "Vanilla", text: "Original", description: "Play the Classic Sokoban maps" },
+      { id: "AutoGen", text: "Auto Gen", description: "AI-assisted creations can be quite challenging!" },
+      { id: "Handmade", text: "Yoshio", description: "Enjoy layouts created by Yoshio Murase" }
     ];
 
     let menuContent = `
@@ -231,21 +230,16 @@ class SokoPacView {
     const buttons = document.querySelectorAll(".menu-button");
     buttons.forEach((button) => {
       button.addEventListener("click", (event) => {
-        console.log(event.currentTarget.id);
         switch (event.currentTarget.id) {
           case 'createMapButton':
             // Handle the 'Create Map' button click here
             console.log('Create Map button clicked');
             break;
-          case 'original':
-            this.renderLevelSelectionMenu(event.target.id);
-            break;
-          case 'autoGen':
-            this.renderLevelSelectionMenu(event.target.id);
-            break;
-          case 'tricky':
-            // Pass the map collection option to the renderLevelSelectionMenu
-            this.renderLevelSelectionMenu(event.target.id);
+          case 'Vanilla':
+          case 'AutoGen':
+          case 'Handmade':
+            // Call the ViewModel function to handle collection selection
+            this.viewModel.handleCollectionSelection(event.currentTarget.id);
             break;
           default:
             // Optional: Handle any other case or log an error
@@ -259,7 +253,7 @@ class SokoPacView {
   //
   renderLevelSelectionMenu() {
     const clearedLevels = this.viewModel.getClearedLevels();
-    const totalLevels = Map.getTotalLevels();
+    const totalLevels = this.viewModel.model.mapCollection.getTotalLevels();
 
     let menuContent = ` <div id="startMenu">
                          <div class="glowingRGB">
@@ -325,38 +319,33 @@ class SokoPacView {
         </div>
       </div>
     `;
-  
+
     // Add the modal content to the app element
     const app = document.getElementById("app");
     app.insertAdjacentHTML("beforeend", modalContent);
-  
+
     // Bind click events for modal buttons
     const levelSelectionButton = document.getElementById("levelSelectionButton");
     const collectionSelectionButton = document.getElementById("collectionSelectionButton");
-  
-    
+
+
     levelSelectionButton.addEventListener("click", () => {
       // Handle going back to level selection
       this.renderLevelSelectionMenu();
       this.closeWinModal();
     });
-  
+
     collectionSelectionButton.addEventListener("click", () => {
       // Handle going back to collection selection
       this.renderStartMenu();
       this.closeWinModal();
     });
   }
-  
+
   closeWinModal() {
     const winModal = document.getElementById("winModal");
     if (winModal) {
       winModal.remove();
     }
   }
-  
-  // showWinMessage() {
-  //   // Show the modal when the player wins
-  //   this.showWinModal();
-  // }
 }

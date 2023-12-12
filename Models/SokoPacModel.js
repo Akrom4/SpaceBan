@@ -9,6 +9,7 @@ class SokoPacModel {
     this.level = 1;
     this.moveHistory = [];
     this.moveCount = 0;
+    this.mapCollection = null;
   }
 
   /* Square array legend
@@ -20,11 +21,13 @@ class SokoPacModel {
           5 -> Box on Dot
           6 -> PacMan on Dot
       */
-
+  setMapCollection(mapCollection) {
+    this.mapCollection = mapCollection;
+  }
   //
   loadLevel(level) {
     this.level = level;
-    let initialState = Map.getInitialState(level);
+    let initialState = this.mapCollection.getLevel(level);
     if (initialState) {
       this.squares = initialState;
       this.winConditionArray = this.winCondition();
