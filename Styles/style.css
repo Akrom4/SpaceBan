@@ -14,6 +14,14 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+.title-container{
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 5vmin;
+}
+
 #moveCount {
   background-color: #ffffff;
 }
@@ -105,11 +113,10 @@ body {
 }
 
 #levelSelection {
-  display: grid;
-  grid-template-columns: repeat(10, auto);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 1vmin;
-  justify-content: center;
-  align-items: center;
 }
 
 .level-btn {
@@ -166,6 +173,7 @@ body {
   gap: 0px;
   /* Adjust the gap between cells as needed */
 }
+
 /* #region Squares */
 .squareWrap {
   width: var(--square-size);
@@ -259,6 +267,7 @@ body {
   align-items: center;
   /* background-image: url("../Images/gGreen.png"); */
 }
+
 /* #endregion */
 /* #region Buttons */
 .button {
@@ -320,6 +329,39 @@ body {
   margin-right: 2vmin;
 }
 
+.back-container{
+  margin-right: 20vmin;
+}
+
+.button-back {
+  width: 5vmin; /* Width of the arrow */
+  height: 5vmin; /* Height of the arrow */
+  position: relative; /* Needed for absolute positioning of pseudo-elements */
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.button-back::before,
+.button-back::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%; /* Full width of the button */
+  height: 1vmin; /* Thickness of the lines */
+  background: #0ff; /* Color of the lines */
+  transform-origin: 20%; /* Origin of the transform */
+}
+
+.button-back::before {
+  transform: translateX(-50%) translateY(-50%) rotate(-45deg); /* Upper line of the arrow */
+}
+
+.button-back::after {
+  transform: translateX(-50%) translateY(-50%) rotate(45deg); /* Lower line of the arrow */
+}
+
 .button span {
   position: absolute;
   top: 50%;
@@ -360,6 +402,7 @@ body {
   margin-top: 0.5em;
   text-align: justify;
 }
+
 /* #endregion */
 /* #region Win Modal */
 .modal {
@@ -379,7 +422,8 @@ body {
   cursor: default;
   animation: animate 1.5s linear infinite;
   margin: 20% auto;
-  border: 2vmin solid transparent; /* Add a solid border */
+  border: 2vmin solid transparent;
+  /* Add a solid border */
   width: 50%;
 
 }
@@ -389,7 +433,8 @@ body {
   border-radius: 10px;
   text-align: center;
   z-index: 20;
-  position: relative; /* Add this property to position child elements */
+  position: relative;
+  /* Add this property to position child elements */
 }
 
 .modalRGB {

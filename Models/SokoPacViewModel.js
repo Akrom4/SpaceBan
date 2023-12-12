@@ -37,20 +37,27 @@ class SokoPacViewModel {
 
   // Save the level progress to local storage
   saveLevelProgress(level) {
-    let clearedLevels = this.getClearedLevels();
-    if (!clearedLevels.includes(level)) {
-      clearedLevels.push(level);
-      localStorage.setItem(
-        "sokoPacClearedLevels",
-        JSON.stringify(clearedLevels)
-      );
+    console.log("Saving level progress");
+    const collectionId = this.model.mapCollection.collectionId;
+    console.log("Collection ID:", collectionId);
+    let progress = this.getClearedLevels();
+    console.log("Progress:", progress);
+    // Initialize progress for the collection if not already done
+    if (!progress[collectionId]) {
+      progress[collectionId] = [];
+    }
+    // Add level to cleared levels if not already included
+    if (!progress[collectionId].includes(level)) {
+      progress[collectionId].push(level);
+      localStorage.setItem("sokoPacClearedLevels", JSON.stringify(progress));
     }
   }
 
   // Retrieve cleared levels from local storage
   getClearedLevels() {
-    let clearedLevels = localStorage.getItem("sokoPacClearedLevels");
-    return clearedLevels ? JSON.parse(clearedLevels) : [];
+    let progress = localStorage.getItem("sokoPacClearedLevels");
+    console.log("Retrieved progress:", progress);
+    return progress ? JSON.parse(progress) : {};
   }
 
   // Bind the View to the ViewModel
@@ -60,8 +67,6 @@ class SokoPacViewModel {
 
   // Handle the collection selection
   async handleCollectionSelection(collection) {
-    console.log(collection);
-
     // Load maps for the selected collection
     const mapCollection = await this.loadMapsFromCollection(collection);
     this.model.setMapCollection(mapCollection);
@@ -69,12 +74,12 @@ class SokoPacViewModel {
     // Continue with rendering the level selection menu or other actions
     this.view.renderLevelSelectionMenu();
   }
-  
+
   // Handle the level selection
   handleLevelSelection(level) {
     if (level) {
       this.model.loadLevel(level);
-      this.view.initUI(); 
+      this.view.initUI();
       this.view.updateUI();
     } else {
       console.error("Level data not found for level:", level);

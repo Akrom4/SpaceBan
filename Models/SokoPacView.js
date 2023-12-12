@@ -87,11 +87,11 @@ class SokoPacView {
     });
 
     undoButton.addEventListener("click", () => {
-      this.viewModel.handleUndo(); 
+      this.viewModel.handleUndo();
     });
 
     resetButton.addEventListener("click", () => {
-      this.viewModel.handleReset(); 
+      this.viewModel.handleReset();
     });
   }
 
@@ -254,26 +254,39 @@ class SokoPacView {
 
   // Render level selection menu
   renderLevelSelectionMenu() {
-    const clearedLevels = this.viewModel.getClearedLevels();
-    const totalLevels = this.viewModel.model.mapCollection.getTotalLevels();
+    const collectionId = this.viewModel.model.mapCollection.collectionId;
+    const progress = this.viewModel.getClearedLevels();
+    const clearedLevels = progress[collectionId] || [];
+    console.log("Cleared levels for collection", collectionId, ":", clearedLevels);
 
-    let menuContent = ` <div id="startMenu">
-                         <div class="glowingRGB">
-                            <span></span>
-                            <span></span>
+    const totalLevels = this.viewModel.model.mapCollection.getTotalLevels();
+// &#8592;
+    let menuContent = `<div id="startMenu">
+                        <div class="title-container">
+                            <div class="back-container">
+                            <button id="backToCollections" class="button">
+                              <span></span><span></span>
+                              <div class="button-display">
+                                <div class="button-back"></div>
+                              </div>
+                            </button>
+                          </div>
+                          <div class="glowingRGB">
+                            <span></span><span></span>
                             <div class="display">
-                                <div id="menuTitle">SELECT LEVEL</div>
+                              <div id="menuTitle">SELECT LEVEL</div>
                             </div>
+                          </div>
                         </div>
                         <div id="levelSelection">`;
 
     for (let level = 1; level <= totalLevels; level++) {
       const isCleared = clearedLevels.includes(level.toString());
+      console.log("Level", level, "is cleared:", isCleared);
       menuContent += `<div class="square3-container">
-                          <button class="level-btn button " data-level="${level}">
-                          <span></span>
-                          <span></span>
-                          <div class=" ${isCleared ? "button-win" : "button-display"}">
+                        <button class="level-btn button" data-level="${level}">
+                          <span></span><span></span>
+                          <div class="button-display ${isCleared ? "button-win" : ""}">
                             <div class="button-content">${level.toString().padStart(2, '0')}</div>
                           </div>
                         </button>
@@ -285,16 +298,23 @@ class SokoPacView {
     this.bindLevelSelectionEvents();
   }
 
+
   // Bind events for the level selection menu
   bindLevelSelectionEvents() {
     const levelButtons = document.querySelectorAll(".level-btn");
     levelButtons.forEach((button) => {
       button.addEventListener("click", (event) => {
         const selectedLevel = event.currentTarget.dataset.level;
-        console.log(selectedLevel);
         this.viewModel.handleLevelSelection(selectedLevel);
       });
     });
+
+    const backToCollectionsBtn = document.getElementById("backToCollections");
+    if (backToCollectionsBtn) {
+      backToCollectionsBtn.addEventListener("click", () => {
+        this.renderStartMenu();
+      });
+    }
   }
 
   // Show the win modal
