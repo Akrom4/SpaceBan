@@ -35,7 +35,7 @@ body {
 }
 
 .glowingRGB .display {
-  z-index: 999;
+  z-index: 20;
   background: #1b1b1b;
   border-radius: 10px;
   text-align: center;
@@ -141,8 +141,10 @@ body {
   height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
 }
 
 
@@ -156,7 +158,8 @@ body {
 }
 
 .nav {
-  margin-bottom: 15vmin; /* Add margin to the bottom of the nav div */
+  margin-bottom: 15vmin;
+  /* Add margin to the bottom of the nav div */
 }
 
 #gameGrid {
@@ -228,7 +231,7 @@ body {
   left: 2%;
   right: 2%;
   bottom: 1%;
-  z-index: 999;
+  z-index: 20;
 }
 
 .square3 span {
@@ -287,7 +290,7 @@ body {
   background-color: #1b1b1b;
   border-radius: 10px;
   text-align: center;
-  z-index: 999;
+  z-index: 20;
 }
 
 .button-win:hover {
@@ -299,11 +302,12 @@ body {
   background-color: #797979;
   /* Darker background color when active/pressed */
 }
+
 .button-win {
   background-color: #ffffff;
   border-radius: 10px;
   text-align: center;
-  z-index: 999;
+  z-index: 20;
 }
 
 .button-content {
@@ -359,3 +363,72 @@ body {
   text-align: justify;
 }
 
+/* #region Win Modal */
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 25;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  /* background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0); */
+  border-radius: 0vmin;
+  cursor: default;
+  animation: animate 1.5s linear infinite;
+  margin: 20% auto;
+  border: 2vmin solid transparent; /* Add a solid border */
+  width: 50%;
+
+}
+
+.modal-display {
+  background-color: #1b1b1b;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 20;
+  position: relative; /* Add this property to position child elements */
+}
+
+.modalRGB {
+  color: #fff;
+  font-size: 3.15em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-left: 5vmin;
+  margin-right: 5vmin;
+  background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animate 1.5s linear infinite;
+}
+
+#lvlCleared {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1em;
+  margin-bottom: 3vmin;
+}
+
+.modal-options {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  z-index: 20;
+}
+
+.modal button {
+  background-color: transparent;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.5em;
+  margin-bottom: 1vmin;
+  border-image: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0) 1;
+  border-radius: 1vmin;
+  cursor: pointer;
+}
+
+/* #endregion */

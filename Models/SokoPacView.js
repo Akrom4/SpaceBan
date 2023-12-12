@@ -274,14 +274,14 @@ class SokoPacView {
     for (let level = 1; level <= totalLevels; level++) {
       const isCleared = clearedLevels.includes(level.toString());
       menuContent += `<div class="square3-container">
-                                            <button class="level-btn button " data-level="${level}">
-                                            <span></span>
-                                            <span></span>
-                                            <div class=" ${isCleared ? "button-win" : "button-display"}">
-                                              <div class="button-content">${level.toString().padStart(2, '0')}</div>
-                                            </div>
-                                          </button>
-                                        </div>`;
+                          <button class="level-btn button " data-level="${level}">
+                          <span></span>
+                          <span></span>
+                          <div class=" ${isCleared ? "button-win" : "button-display"}">
+                            <div class="button-content">${level.toString().padStart(2, '0')}</div>
+                          </div>
+                        </button>
+                      </div>`;
     }
 
     menuContent += `</div></div>`;
@@ -308,4 +308,55 @@ class SokoPacView {
       alert("Congratulations! You've won!");
     }, "100");
   }
+  showWinModal() {
+    console.log("showWinModal");
+    const modalContent = `
+      <div id="winModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-display">
+            <div class="modalRGB">
+              <div id="lvlCleared">LEVEL CLEARED !</div>
+              <div class="modal-options">              
+                <button id="collectionSelectionButton">Back to Collections</button>
+                <button id="levelSelectionButton">Back to Levels</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  
+    // Add the modal content to the app element
+    const app = document.getElementById("app");
+    app.insertAdjacentHTML("beforeend", modalContent);
+  
+    // Bind click events for modal buttons
+    const levelSelectionButton = document.getElementById("levelSelectionButton");
+    const collectionSelectionButton = document.getElementById("collectionSelectionButton");
+  
+    
+    levelSelectionButton.addEventListener("click", () => {
+      // Handle going back to level selection
+      this.renderLevelSelectionMenu();
+      this.closeWinModal();
+    });
+  
+    collectionSelectionButton.addEventListener("click", () => {
+      // Handle going back to collection selection
+      this.renderStartMenu();
+      this.closeWinModal();
+    });
+  }
+  
+  closeWinModal() {
+    const winModal = document.getElementById("winModal");
+    if (winModal) {
+      winModal.remove();
+    }
+  }
+  
+  // showWinMessage() {
+  //   // Show the modal when the player wins
+  //   this.showWinModal();
+  // }
 }

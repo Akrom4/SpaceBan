@@ -23,7 +23,7 @@ class SokoPacViewModel {
   onModelWin() {
     if (this.view) {
       this.view.removeKeyEvents();
-      this.view.showWinMessage();
+      this.view.showWinModal();
       this.saveLevelProgress(this.model.level);
     }
   }
