@@ -210,9 +210,6 @@ body {
     0 0 calc(var(--square-size) / 1.5) calc(var(--square-size) / 3) #0ff;
 }
 
-.square2 {
-  background-image: url("../Images/alien.png");
-}
 
 .square3 {
   border-radius: 10px;
