@@ -10,6 +10,7 @@ class SokoPacView {
     this.gridInitialized = false;
   }
 
+  // Initialize the grid
   initUI() {
     this.renderUI("app", this.userInterface());
     this.gridInitialized = true;
@@ -37,6 +38,7 @@ class SokoPacView {
     return content;
   }
 
+  // Create a button
   createUIButton({ id, text }) {
     return `
       <div class="square3-container">
@@ -49,6 +51,7 @@ class SokoPacView {
       </div>`;
   }
 
+  // Handle keyboard and buttons events
   bindEvents() {
     const app = document.getElementById("app");
 
@@ -60,10 +63,13 @@ class SokoPacView {
     app.addEventListener("click", this.handleButtonClick);
     window.addEventListener("keydown", this.keyEvent);
   }
+
+  // Remove keyboard event listeners
   removeKeyEvents() {
     window.removeEventListener("keydown", this.keyEvent);
   }
 
+  // Handle button clicks
   bindButtonEvents() {
     const levelsButton = document.getElementById("levels");
     const collectionsButton = document.getElementById("collections");
@@ -71,34 +77,36 @@ class SokoPacView {
     const resetButton = document.getElementById("reset");
 
     levelsButton.addEventListener("click", () => {
-      // Handle the 'Collections' button click here
+      // Handle the 'Collections'
       this.renderStartMenu();
     });
 
     collectionsButton.addEventListener("click", () => {
-      // Handle the 'Levels' button click here
+      // Handle the 'Levels'
       this.renderLevelSelectionMenu();
     });
 
     undoButton.addEventListener("click", () => {
-      this.viewModel.handleUndo(); // Call the appropriate view model method
+      this.viewModel.handleUndo(); 
     });
 
     resetButton.addEventListener("click", () => {
-      this.viewModel.handleReset(); // Call the appropriate view model method
+      this.viewModel.handleReset(); 
     });
   }
 
-
+  // Handle keyboard events, tries to move the robot
   keyEvent(event) {
     const moveMap = { "ArrowLeft": [-1, 0], "ArrowRight": [1, 0], "ArrowUp": [0, -1], "ArrowDown": [0, 1] };
     if (moveMap[event.key]) this.viewModel.handleMove(moveMap[event.key]);
   }
 
+  // Render a part of the UI
   renderUI(targetId, content) {
     document.getElementById(targetId).innerHTML = content;
   }
 
+  // Update the game UI
   updateUI() {
     if (!this.gridInitialized) {
       this.initializeGrid();
@@ -135,30 +143,26 @@ class SokoPacView {
         let sizeMultiplier = square === 1 ? 0.3 : 0.8; // Reduce size for square1
         let adjustedSize = squareSize * sizeMultiplier;
 
-        if (square === 0) {
-          // Render an <img> for the robot inside square0 and then render square1 (dot)
+        if (square === 0) { // Robot
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square0" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
                                     <img src="../Images/robot.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
                                 </div>
                             </div>`;
-        } else if (square === 6) {
-          // Render an <img> for the robot inside square0 and then render square1 (dot)
+        } else if (square === 6) { // Robot on dot
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square0" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
                                     <img src="../Images/robot.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
                                     <div class="square square1" style="width: ${squareSize * 0.3}vmin; height: ${squareSize * 0.3}vmin; z-index: 1; position: absolute;"></div>
                                 </div>
                             </div>`;
-        } else if (square === 2) {
-          // Render an <img> for the robot inside square0 and then render square1 (dot)
+        } else if (square === 2) { // Alien
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square2" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
                                     <img src="../Images/alienWin.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
                                 </div>
                             </div>`;
-        } else if (square === 5) {
-          // Render an <img> for the robot inside square0 and then render square1 (dot)
+        } else if (square === 5) { // Alien on dot
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square5" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
                                     <img src="../Images/alien.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
@@ -166,7 +170,7 @@ class SokoPacView {
                                 </div>
                             </div>`;
 
-        } else if (square === 3) {
+        } else if (square === 3) { // Wall
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square${square}" style="width: ${adjustedSize}vmin; height: ${adjustedSize}vmin;">
                                     <span></span><span></span>
@@ -175,8 +179,7 @@ class SokoPacView {
                                     </div>
                                 </div>
                             </div>`;
-        } else {
-          // Render other squares normally
+        } else { // Other squares
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square${square}" style="width: ${adjustedSize}vmin; height: ${adjustedSize}vmin;"></div>
                             </div>`;
@@ -186,8 +189,7 @@ class SokoPacView {
     return content;
   }
 
-
-  //
+  // Render collections menu
   renderStartMenu() {
     const menuOptions = [
       { id: "Vanilla", text: "Original", description: "Play the Classic Sokoban maps" },
@@ -212,6 +214,7 @@ class SokoPacView {
     this.bindStartMenuEvents();
   }
 
+  // Create a collection and the assiociated button
   createMenuButton({ id, text, description }) {
     return `
       <div class="button-container">
@@ -225,14 +228,13 @@ class SokoPacView {
       </div>`;
   }
 
-  //
+  // Bind events for the collection menu
   bindStartMenuEvents() {
     const buttons = document.querySelectorAll(".menu-button");
     buttons.forEach((button) => {
       button.addEventListener("click", (event) => {
         switch (event.currentTarget.id) {
           case 'createMapButton':
-            // Handle the 'Create Map' button click here
             console.log('Create Map button clicked');
             break;
           case 'Vanilla':
@@ -250,7 +252,7 @@ class SokoPacView {
     });
   }
 
-  //
+  // Render level selection menu
   renderLevelSelectionMenu() {
     const clearedLevels = this.viewModel.getClearedLevels();
     const totalLevels = this.viewModel.model.mapCollection.getTotalLevels();
@@ -283,7 +285,7 @@ class SokoPacView {
     this.bindLevelSelectionEvents();
   }
 
-  //
+  // Bind events for the level selection menu
   bindLevelSelectionEvents() {
     const levelButtons = document.querySelectorAll(".level-btn");
     levelButtons.forEach((button) => {
@@ -295,15 +297,8 @@ class SokoPacView {
     });
   }
 
-  // Win handling
-  showWinMessage() {
-    // Show a win message or screen to the player
-    setTimeout(() => {
-      alert("Congratulations! You've won!");
-    }, "100");
-  }
+  // Show the win modal
   showWinModal() {
-    console.log("showWinModal");
     const modalContent = `
       <div id="winModal" class="modal">
         <div class="modal-content">

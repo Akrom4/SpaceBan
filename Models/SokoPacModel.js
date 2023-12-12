@@ -20,11 +20,14 @@ class SokoPacModel {
           4 -> Empty
           5 -> Box on Dot
           6 -> PacMan on Dot
-      */
+  */
+
+  // Set the map collection
   setMapCollection(mapCollection) {
     this.mapCollection = mapCollection;
   }
-  //
+
+  // Load a level from the map collection
   loadLevel(level) {
     this.level = level;
     let initialState = this.mapCollection.getLevel(level);
@@ -100,7 +103,8 @@ class SokoPacModel {
       this.onWin();
     }
   }
-  // MUndo the last move
+
+  // Undo the last move
   undoMove() {
     if (this.moveHistory.length > 0) {
       this.squares = this.moveHistory.pop(); // Revert to the last state
@@ -109,7 +113,7 @@ class SokoPacModel {
     }
   }
 
-  //
+  // Check if the position is within the grid boundaries
   isValidPosition(row, column) {
     return (
       row >= 0 &&

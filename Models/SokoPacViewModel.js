@@ -12,6 +12,7 @@ class SokoPacViewModel {
     this.model.setWinCallback(() => this.onModelWin()); // Notifies the ViewModel that the game is finished
   }
 
+  // Load maps from a collection
   async loadMapsFromCollection(collectionId) {
     const mapCollection = new MapCollection(collectionId);
     await mapCollection.loadMaps(collectionId);
@@ -34,7 +35,7 @@ class SokoPacViewModel {
     }
   }
 
-  //
+  // Save the level progress to local storage
   saveLevelProgress(level) {
     let clearedLevels = this.getClearedLevels();
     if (!clearedLevels.includes(level)) {
@@ -57,29 +58,28 @@ class SokoPacViewModel {
     this.view = view;
   }
 
+  // Handle the collection selection
   async handleCollectionSelection(collection) {
     console.log(collection);
 
-
     // Load maps for the selected collection
     const mapCollection = await this.loadMapsFromCollection(collection);
-    this.model.setMapCollection(mapCollection); // Assume this method sets the map collection in the model
+    this.model.setMapCollection(mapCollection);
 
     // Continue with rendering the level selection menu or other actions
     this.view.renderLevelSelectionMenu();
   }
-  //
+  
+  // Handle the level selection
   handleLevelSelection(level) {
     if (level) {
-      this.model.loadLevel(level); // Load the selected level
-      this.view.initUI(); // Initialize the UI for the selected level
+      this.model.loadLevel(level);
+      this.view.initUI(); 
       this.view.updateUI();
     } else {
       console.error("Level data not found for level:", level);
-      // Additional handling for this error situation
     }
   }
-  
 
   // Move handling
   handleMove(direction) {
@@ -93,11 +93,13 @@ class SokoPacViewModel {
     this.view.initUI();
     this.view.updateUI();
   }
-  //
+
+  // Handle the menu button
   handleMenu() {
     this.view.renderLevelSelectionMenu();
   }
-  //
+
+  // Handle the undo button
   handleUndo() {
     this.model.undoMove();
     this.view.updateUI();
