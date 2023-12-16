@@ -14,12 +14,24 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-.title-container{
+.header-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.back-container {
+  position: absolute;
+  left: 0; /* Positions the back button to the left */
+  top: 0;
+  
+}
+
+.title-container {
   width: 100%;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  margin-bottom: 5vmin;
+  justify-content: center; /* Center the title horizontally */
 }
 
 #moveCount {

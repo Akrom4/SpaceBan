@@ -262,15 +262,16 @@ class SokoPacView {
     const totalLevels = this.viewModel.model.mapCollection.getTotalLevels();
 // &#8592;
     let menuContent = `<div id="startMenu">
-                        <div class="title-container">
-                            <div class="back-container">
-                            <button id="backToCollections" class="button">
-                              <span></span><span></span>
-                              <div class="button-display">
+                        <div class="header-container">
+                        <div class="back-container">
+                          <button id="backToCollections" class="button">
+                            <span></span><span></span>
+                            <div class="button-display">
                                 <div class="button-back"></div>
-                              </div>
-                            </button>
-                          </div>
+                            </div>
+                          </button>
+                        </div>
+                        <div class="title-container">
                           <div class="glowingRGB">
                             <span></span><span></span>
                             <div class="display">
@@ -278,7 +279,9 @@ class SokoPacView {
                             </div>
                           </div>
                         </div>
-                        <div id="levelSelection">`;
+                        </div>
+                      </div>
+                      <div id="levelSelection">`;
 
     for (let level = 1; level <= totalLevels; level++) {
       const isCleared = clearedLevels.includes(level.toString());
