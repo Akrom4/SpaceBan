@@ -501,8 +501,8 @@ footer #player {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 2.5rem;
-  background: #000000;
+  height: 2.3rem;
+  background: #111111;
   display: flex;
   justify-content: center;
   align-items: center;

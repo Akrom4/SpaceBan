@@ -109,4 +109,35 @@ class SokoPacViewModel {
     this.model.undoMove();
     this.view.updateUI();
   }
+
+  // Return the current level
+  getCollectionId() {
+    return this.model.mapCollection.collectionId;
+  }
+
+  // Return the total number of levels in the current collection
+  getTotalLevels() {
+    return this.model.mapCollection.getTotalLevels();
+  }
+
+  // Return the array of cleared levels for the current collection
+  isLevelCleared(level) {
+    const clearedLevels = this.getClearedLevels()[this.getCollectionId()] || [];
+    return clearedLevels.includes(level);
+  }
+
+  // Return the move count
+  getMoveCount() {
+    return this.model.moveCount;
+  }
+  // Return the board dimensions
+  getBoardDimensions() {
+    const numColumns = this.model.squares[0].length;
+    const numRows = this.model.squares.length;
+    return { numColumns, numRows };
+  }
+
+  getSquares() {
+    return this.model.squares;
+  }
 }

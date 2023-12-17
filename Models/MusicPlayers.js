@@ -70,6 +70,8 @@ class MusicPlayer {
 }
 
 // Example usage
+let footer = document.getElementById("footer");
+footer.document.c += `<div id="player"></div>`;
 const musicPlayer = new MusicPlayer();
 musicPlayer.addToPlaylist({ title: "Song 1", artist: "Artist 1", url: "song1.mp3" });
 musicPlayer.addToPlaylist({ title: "Song 2", artist: "Artist 2", url: "song2.mp3" });

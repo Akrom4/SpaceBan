@@ -114,12 +114,11 @@ class SokoPacView {
     const boardDiv = document.getElementById("gameGrid");
     const moveCountDiv = document.getElementById("moveCount");
     if (moveCountDiv) {
-      moveCountDiv.textContent = "Moves: " + this.viewModel.model.moveCount;
+      moveCountDiv.textContent = "Moves: " + this.viewModel.getMoveCount();
     }
 
     // Calculate the number of columns and rows
-    const numColumns = this.viewModel.model.squares[0].length;
-    const numRows = this.viewModel.model.squares.length;
+    const { numColumns, numRows } = this.viewModel.getBoardDimensions();
 
     // Determine whether the board is longer in horizontal or vertical orientation
     const isHorizontal = numColumns >= numRows;
@@ -138,7 +137,8 @@ class SokoPacView {
   // Grid rendering with dynamic square size
   toHTML(squareSize) {
     let content = "";
-    this.viewModel.model.squares.forEach((row) => {
+    const squares = this.viewModel.getSquares();
+    squares.forEach((row) => {
       row.forEach((square) => {
         let sizeMultiplier = square === 1 ? 0.3 : 0.8; // Reduce size for square1
         let adjustedSize = squareSize * sizeMultiplier;
@@ -254,13 +254,11 @@ class SokoPacView {
 
   // Render level selection menu
   renderLevelSelectionMenu() {
-    const collectionId = this.viewModel.model.mapCollection.collectionId;
+    const collectionId = this.viewModel.getCollectionId();
     const progress = this.viewModel.getClearedLevels();
     const clearedLevels = progress[collectionId] || [];
     console.log("Cleared levels for collection", collectionId, ":", clearedLevels);
-
-    const totalLevels = this.viewModel.model.mapCollection.getTotalLevels();
-// &#8592;
+    const totalLevels = this.viewModel.getTotalLevels();
     let menuContent = `<div id="startMenu">
                         <div class="header-container">
                         <div class="back-container">
