@@ -33,6 +33,40 @@ class SokoPacView {
           </div>
         </div>
         <div id="gameGrid" class="game-grid"></div>
+        <div id="joystick">
+            <div class="joystick-arrow">
+                <button id="joystick-left" class="button">
+                    <span></span><span></span>
+                    <div class="button-display">
+                        <div class="button-back button-left"></div>
+                    </div>
+                </button>
+             </div>
+             <div class="joystick-arrow">
+                <button id="joystick-up" class="button">
+                    <span></span><span></span>
+                    <div class="button-display">
+                        <div class="button-back button-up"></div>
+                    </div>
+                </button>
+             </div>
+             <div class="joystick-arrow">
+                <button id="joystick-right" class="button">
+                    <span></span><span></span>
+                    <div class="button-display">
+                        <div class="button-back button-right"></div>
+                    </div>
+                </button>
+             </div>
+             <div class="joystick-arrow">
+                <button id="joystick-down" class="button">
+                    <span></span><span></span>
+                    <div class="button-display">
+                        <div class="button-back button-down"></div>
+                    </div>
+                </button>
+             </div>
+        </div>                        
       </div>
     `;
     return content;
@@ -75,6 +109,31 @@ class SokoPacView {
     const collectionsButton = document.getElementById("collections");
     const undoButton = document.getElementById("undo");
     const resetButton = document.getElementById("reset");
+    const joystick = document.getElementById("joystick");
+
+    joystick.addEventListener("click", (event) => {
+        let button = event.target.closest(".joystick-arrow button");
+        if (button) {
+          const direction = button.id;
+          console.log(direction);
+          switch (direction) {
+            case "joystick-left":
+              this.viewModel.handleMove([-1, 0]);
+              break;
+            case "joystick-right":
+              this.viewModel.handleMove([1, 0]);
+              break;
+            case "joystick-up":
+              this.viewModel.handleMove([0, -1]);
+              break;
+            case "joystick-down":
+              this.viewModel.handleMove([0, 1]);
+              break;
+            default:
+              break;
+          }
+        }
+      });
 
     levelsButton.addEventListener("click", () => {
       // Handle the 'Collections'
@@ -97,7 +156,12 @@ class SokoPacView {
 
   // Handle keyboard events, tries to move the robot
   keyEvent(event) {
-    const moveMap = { "ArrowLeft": [-1, 0], "ArrowRight": [1, 0], "ArrowUp": [0, -1], "ArrowDown": [0, 1] };
+    const moveMap = {
+      ArrowLeft: [-1, 0],
+      ArrowRight: [1, 0],
+      ArrowUp: [0, -1],
+      ArrowDown: [0, 1],
+    };
     if (moveMap[event.key]) this.viewModel.handleMove(moveMap[event.key]);
     if (event.key === "r") this.viewModel.handleReset();
     if (event.key === "u") this.viewModel.handleUndo();
@@ -145,34 +209,46 @@ class SokoPacView {
         let sizeMultiplier = square === 1 ? 0.3 : 0.8; // Reduce size for square1
         let adjustedSize = squareSize * sizeMultiplier;
 
-        if (square === 0) { // Robot
+        if (square === 0) {
+          // Robot
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square0" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
                                     <img src="Images/robot.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
                                 </div>
                             </div>`;
-        } else if (square === 6) { // Robot on dot
+        } else if (square === 6) {
+          // Robot on dot
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square0" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
                                     <img src="Images/robot.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
-                                    <div class="square square1" style="width: ${squareSize * 0.3}vmin; height: ${squareSize * 0.3}vmin; z-index: 1; position: absolute;"></div>
+                                    <div class="square square1" style="width: ${
+                                      squareSize * 0.3
+                                    }vmin; height: ${
+            squareSize * 0.3
+          }vmin; z-index: 1; position: absolute;"></div>
                                 </div>
                             </div>`;
-        } else if (square === 2) { // Alien
+        } else if (square === 2) {
+          // Alien
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square2" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
                                     <img src="Images/alienWin.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
                                 </div>
                             </div>`;
-        } else if (square === 5) { // Alien on dot
+        } else if (square === 5) {
+          // Alien on dot
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square5" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
                                     <img src="Images/alien.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
-                                    <div class="square square1" style="width: ${squareSize * 0.3}vmin; height: ${squareSize * 0.3}vmin; z-index: 1; position: absolute;"></div>
+                                    <div class="square square1" style="width: ${
+                                      squareSize * 0.3
+                                    }vmin; height: ${
+            squareSize * 0.3
+          }vmin; z-index: 1; position: absolute;"></div>
                                 </div>
                             </div>`;
-
-        } else if (square === 3) { // Wall
+        } else if (square === 3) {
+          // Wall
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square${square}" style="width: ${adjustedSize}vmin; height: ${adjustedSize}vmin;">
                                     <span></span><span></span>
@@ -181,7 +257,8 @@ class SokoPacView {
                                     </div>
                                 </div>
                             </div>`;
-        } else { // Dot or empty
+        } else {
+          // Dot or empty
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square${square}" style="width: ${adjustedSize}vmin; height: ${adjustedSize}vmin;"></div>
                             </div>`;
@@ -194,9 +271,21 @@ class SokoPacView {
   // Render collections menu
   renderStartMenu() {
     const menuOptions = [
-      { id: "Vanilla", text: "Original", description: "Play the Classic Sokoban maps" },
-      { id: "AutoGen", text: "Auto Gen", description: "AI-assisted creations can be quite challenging!" },
-      { id: "Handmade", text: "Yoshio", description: "Enjoy layouts created by Yoshio Murase" }
+      {
+        id: "Vanilla",
+        text: "Original",
+        description: "Play the Classic Sokoban maps",
+      },
+      {
+        id: "AutoGen",
+        text: "Auto Gen",
+        description: "AI-assisted creations can be quite challenging!",
+      },
+      {
+        id: "Handmade",
+        text: "Yoshio",
+        description: "Enjoy layouts created by Yoshio Murase",
+      },
     ];
 
     let menuContent = `
@@ -208,7 +297,7 @@ class SokoPacView {
           </div>
         </div>
         <div id="mapChoices" class="map-choice-container">
-          ${menuOptions.map(option => this.createMenuButton(option)).join('')}
+          ${menuOptions.map((option) => this.createMenuButton(option)).join("")}
         </div>
       </div>`;
 
@@ -236,18 +325,18 @@ class SokoPacView {
     buttons.forEach((button) => {
       button.addEventListener("click", (event) => {
         switch (event.currentTarget.id) {
-          case 'createMapButton':
-            console.log('Create Map button clicked');
+          case "createMapButton":
+            console.log("Create Map button clicked");
             break;
-          case 'Vanilla':
-          case 'AutoGen':
-          case 'Handmade':
+          case "Vanilla":
+          case "AutoGen":
+          case "Handmade":
             // Call the ViewModel function to handle collection selection
             this.viewModel.handleCollectionSelection(event.currentTarget.id);
             break;
           default:
             // Optional: Handle any other case or log an error
-            console.log('Unknown button clicked');
+            console.log("Unknown button clicked");
             break;
         }
       });
@@ -266,7 +355,7 @@ class SokoPacView {
                           <button id="backToCollections" class="button">
                             <span></span><span></span>
                             <div class="button-display">
-                                <div class="button-back"></div>
+                                <div class="button-back button-left"></div>
                             </div>
                           </button>
                         </div>
@@ -287,8 +376,12 @@ class SokoPacView {
       menuContent += `<div class="square3-container">
                         <button class="level-btn button" data-level="${level}">
                           <span></span><span></span>
-                          <div class="button-display ${isCleared ? "button-win" : ""}">
-                            <div class="button-content">${level.toString().padStart(2, '0')}</div>
+                          <div class="button-display ${
+                            isCleared ? "button-win" : ""
+                          }">
+                            <div class="button-content">${level
+                              .toString()
+                              .padStart(2, "0")}</div>
                           </div>
                         </button>
                       </div>`;
@@ -298,7 +391,6 @@ class SokoPacView {
     document.getElementById("app").innerHTML = menuContent;
     this.bindLevelSelectionEvents();
   }
-
 
   // Bind events for the level selection menu
   bindLevelSelectionEvents() {
@@ -341,9 +433,12 @@ class SokoPacView {
     app.insertAdjacentHTML("beforeend", modalContent);
 
     // Bind click events for modal buttons
-    const levelSelectionButton = document.getElementById("levelSelectionButton");
-    const collectionSelectionButton = document.getElementById("collectionSelectionButton");
-
+    const levelSelectionButton = document.getElementById(
+      "levelSelectionButton"
+    );
+    const collectionSelectionButton = document.getElementById(
+      "collectionSelectionButton"
+    );
 
     levelSelectionButton.addEventListener("click", () => {
       // Handle going back to level selection

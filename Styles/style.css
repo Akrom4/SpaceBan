@@ -1,6 +1,8 @@
 /* #region Main */
 :root {
   --square-size: 5vmin;
+  --joystick-color: #f76c6c;
+    --joystick-head-color: #9cffa4;
 }
 
 body {
@@ -347,8 +349,8 @@ body {
   cursor: pointer;
 }
 
-.button-back::before,
-.button-back::after {
+.button-left::before,
+.button-left::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -356,14 +358,14 @@ body {
   width: 50%; 
   height: 1vmin; 
   background: #0ff; 
-  transform-origin: 20%; /* Origin of the transform */
+  transform-origin: 20%; /* Align to the left */
 }
 
-.button-back::before {
+.button-left::before {
   transform: translateX(-50%) translateY(-50%) rotate(-45deg); /* Upper line of the arrow */
 }
 
-.button-back::after {
+.button-left::after {
   transform: translateX(-50%) translateY(-50%) rotate(45deg); /* Lower line of the arrow */
 }
 
@@ -406,6 +408,8 @@ body {
   margin-top: 0.5em;
   text-align: justify;
 }
+
+
 
 /* #endregion */
 /* #region Win Modal */
@@ -476,29 +480,101 @@ body {
 }
 
 /* #endregion */
-/* #region Media Queries */
-
-@media only screen and (max-width: 600px) {
-  .button-container {
-    max-width: 100%;
-  }
-  .actions {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  .game-container {
-    flex-direction: column;
-    flex-wrap: wrap;
-  }
-  .nav{
-    flex-direction: row;
-  }
-  .boardActions{
-      flex-direction: row;
-  }
+/* #region Joystick */
+#joystick {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 10em;
+    height: 10em;
+    margin-left: 1em;
 }
 
-@media only screen and (max-width: 400px) {
+.joystick-arrow:nth-child(1) { /* Assuming this is joystick-left */
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.joystick-arrow:nth-child(2) { /* Assuming this is joystick-up */
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.joystick-arrow:nth-child(3) { /* Assuming this is joystick-right */
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.joystick-arrow:nth-child(4) { /* Assuming this is joystick-down */
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.button-down::before,
+.button-down::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%; 
+  height: 1vmin; 
+  background: #0ff; 
+  transform-origin: 30%; /* Align to the left */
+}
+
+.button-down::before {
+  transform: translateX(15%) translateY(-60%) rotate(135deg); /* Upper line of the arrow */
+}
+
+.button-down::after {
+  transform: translateX(-60%) translateY(-60%) rotate(45deg); /* Lower line of the arrow */
+}
+
+.button-up::before,
+.button-up::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%; 
+  height: 1vmin; 
+  background: #0ff; 
+  transform-origin: 0%; /* Align to the left */
+}
+
+.button-up::before {
+  transform: translateX(-60%) translateY(25%) rotate(-45deg); /* Upper line of the arrow */
+}
+
+.button-up::after {
+  transform: translateX(60%) translateY(25%) rotate(225deg); /* Lower line of the arrow */
+}
+
+.button-right::before,
+.button-right::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%; 
+  height: 1vmin; 
+  background: #0ff; 
+  transform-origin: 20%; /* Align to the left */
+}
+
+.button-right::before {
+  transform: translateX(0%) translateY(-50%) rotate(225deg); /* Upper line of the arrow */
+}
+
+.button-right::after {
+  transform: translateX(0%) translateY(-50%) rotate(135deg); /* Lower line of the arrow */
+}
+
+
+/* #endregion */
+/* #region Media Queries */
+
+@media only screen and (max-width: 800px) {
   .button-container {
     max-width: 100%;
   }
@@ -516,5 +592,8 @@ body {
   .boardActions{
       flex-direction: row;
   }
-}  
+  .button {
+    font-size: 1.5em;
+  }
+} 
 /* #endregion */
