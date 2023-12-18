@@ -1,6 +1,6 @@
+/* #region Main */
 :root {
   --square-size: 5vmin;
-  /* Default square size */
 }
 
 body {
@@ -23,15 +23,14 @@ body {
 }
 .back-container {
   position: absolute;
-  left: 0; /* Positions the back button to the left */
+  left: 0; 
   top: 0;
-  
 }
 
 .title-container {
   width: 100%;
   display: flex;
-  justify-content: center; /* Center the title horizontally */
+  justify-content: center; 
 }
 
 #moveCount {
@@ -106,14 +105,12 @@ body {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  /* Space between buttons */
+  flex-wrap: wrap;
 }
 
 #createMapContainer {
   margin-top: 1rem;
-  /* Space above the create map button */
   text-align: center;
-  /* Center align the button */
 }
 
 #levelMenuContainer {
@@ -161,34 +158,37 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /* Center horizontally */
   align-items: center;
-  /* Center vertically */
 }
 
 .actions {
-  /* Define styles for the actions (undo and reset buttons) section here */
-  position:absolute;
-  right:75%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.nav {
-  margin-bottom: 15vmin;
-  /* Add margin to the bottom of the nav div */
+.nav{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5vmin;
+}
+.boardActions{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5vmin;
 }
 
 #gameGrid {
   display: grid;
   justify-content: center;
   align-items: center;
-  gap: 0px;
-  /* Adjust the gap between cells as needed */
 }
-
+/* #endregion */
 /* #region Squares */
 .squareWrap {
   width: var(--square-size);
@@ -210,7 +210,6 @@ body {
 /* Specific square types */
 .square0 {
   position: relative;
-  /* background-image: url("../Images/robot.png"); */
 }
 
 .square1 {
@@ -244,7 +243,6 @@ body {
   border-radius: 10px;
   position: absolute;
   top: 1%;
-  /* Adjust size and position as needed */
   left: 2%;
   right: 2%;
   bottom: 1%;
@@ -277,7 +275,6 @@ body {
 
 .square5 {
   align-items: center;
-  /* background-image: url("../Images/gGreen.png"); */
 }
 
 /* #endregion */
@@ -296,12 +293,10 @@ body {
 
 .button-display:hover {
   background-color: #333;
-  /* Slightly different background color on hover */
 }
 
 .button-display:active {
   background-color: #555;
-  /* Darker background color when active/pressed */
 }
 
 
@@ -314,12 +309,10 @@ body {
 
 .button-win:hover {
   background-color: #d1d1d1;
-  /* Slightly different background color on hover */
 }
 
 .button-win:active {
   background-color: #797979;
-  /* Darker background color when active/pressed */
 }
 
 .button-win {
@@ -346,9 +339,9 @@ body {
 }
 
 .button-back {
-  width: 5vmin; /* Width of the arrow */
-  height: 5vmin; /* Height of the arrow */
-  position: relative; /* Needed for absolute positioning of pseudo-elements */
+  width: 5vmin; 
+  height: 5vmin; 
+  position: relative; 
   background: none;
   border: none;
   cursor: pointer;
@@ -360,9 +353,9 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 50%; /* Full width of the button */
-  height: 1vmin; /* Thickness of the lines */
-  background: #0ff; /* Color of the lines */
+  width: 50%; 
+  height: 1vmin; 
+  background: #0ff; 
   transform-origin: 20%; /* Origin of the transform */
 }
 
@@ -400,7 +393,6 @@ body {
   flex-direction: column;
   align-items: center;
   border-width: 2px;
-  /* Adjust the width as needed */
   border-image: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0) 1;
   border-style: double;
   border-radius: 10px;
@@ -429,13 +421,11 @@ body {
 }
 
 .modal-content {
-  /* background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0); */
   border-radius: 0vmin;
   cursor: default;
   animation: animate 1.5s linear infinite;
   margin: 20% auto;
   border: 2vmin solid transparent;
-  /* Add a solid border */
   width: 50%;
 
 }
@@ -446,7 +436,6 @@ body {
   text-align: center;
   z-index: 20;
   position: relative;
-  /* Add this property to position child elements */
 }
 
 .modalRGB {
@@ -487,24 +476,45 @@ body {
 }
 
 /* #endregion */
-/* #region Media Player */
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2.5rem;
-  background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
-  animation: animate 1.5s linear infinite;
+/* #region Media Queries */
+
+@media only screen and (max-width: 600px) {
+  .button-container {
+    max-width: 100%;
+  }
+  .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .game-container {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .nav{
+    flex-direction: row;
+  }
+  .boardActions{
+      flex-direction: row;
+  }
 }
 
-footer #player {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2.3rem;
-  background: #111111;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+@media only screen and (max-width: 400px) {
+  .button-container {
+    max-width: 100%;
+  }
+  .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .game-container {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .nav{
+    flex-direction: row;
+  }
+  .boardActions{
+      flex-direction: row;
+  }
+}  
 /* #endregion */

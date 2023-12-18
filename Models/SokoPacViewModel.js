@@ -37,11 +37,8 @@ class SokoPacViewModel {
 
   // Save the level progress to local storage
   saveLevelProgress(level) {
-    console.log("Saving level progress");
     const collectionId = this.model.mapCollection.collectionId;
-    console.log("Collection ID:", collectionId);
     let progress = this.getClearedLevels();
-    console.log("Progress:", progress);
     // Initialize progress for the collection if not already done
     if (!progress[collectionId]) {
       progress[collectionId] = [];
@@ -56,7 +53,6 @@ class SokoPacViewModel {
   // Retrieve cleared levels from local storage
   getClearedLevels() {
     let progress = localStorage.getItem("sokoPacClearedLevels");
-    console.log("Retrieved progress:", progress);
     return progress ? JSON.parse(progress) : {};
   }
 
@@ -137,6 +133,7 @@ class SokoPacViewModel {
     return { numColumns, numRows };
   }
 
+  // Return the squares array
   getSquares() {
     return this.model.squares;
   }

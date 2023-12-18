@@ -22,7 +22,6 @@ class SokoPacView {
   userInterface() {
     let content = `
       <div id="gameContainer" class="game-container">
-        <div id="gameGrid" class="game-grid"></div>
         <div id="actions" class="actions">
           <div class="nav">
             ${this.createUIButton({ id: "levels", text: "Collections" })}
@@ -33,6 +32,7 @@ class SokoPacView {
             ${this.createUIButton({ id: "reset", text: "Reset" })}
           </div>
         </div>
+        <div id="gameGrid" class="game-grid"></div>
       </div>
     `;
     return content;
@@ -99,6 +99,8 @@ class SokoPacView {
   keyEvent(event) {
     const moveMap = { "ArrowLeft": [-1, 0], "ArrowRight": [1, 0], "ArrowUp": [0, -1], "ArrowDown": [0, 1] };
     if (moveMap[event.key]) this.viewModel.handleMove(moveMap[event.key]);
+    if (event.key === "r") this.viewModel.handleReset();
+    if (event.key === "u") this.viewModel.handleUndo();
   }
 
   // Render a part of the UI
@@ -257,7 +259,6 @@ class SokoPacView {
     const collectionId = this.viewModel.getCollectionId();
     const progress = this.viewModel.getClearedLevels();
     const clearedLevels = progress[collectionId] || [];
-    console.log("Cleared levels for collection", collectionId, ":", clearedLevels);
     const totalLevels = this.viewModel.getTotalLevels();
     let menuContent = `<div id="startMenu">
                         <div class="header-container">
@@ -283,7 +284,6 @@ class SokoPacView {
 
     for (let level = 1; level <= totalLevels; level++) {
       const isCleared = clearedLevels.includes(level.toString());
-      console.log("Level", level, "is cleared:", isCleared);
       menuContent += `<div class="square3-container">
                         <button class="level-btn button" data-level="${level}">
                           <span></span><span></span>
