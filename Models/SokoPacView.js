@@ -34,42 +34,27 @@ class SokoPacView {
         </div>
         <div id="gameGrid" class="game-grid"></div>
         <div id="joystick">
-            <div class="joystick-arrow">
-                <button id="joystick-left" class="button">
-                    <span></span><span></span>
-                    <div class="button-display">
-                        <div class="button-back button-left"></div>
-                    </div>
-                </button>
-             </div>
-             <div class="joystick-arrow">
-                <button id="joystick-up" class="button">
-                    <span></span><span></span>
-                    <div class="button-display">
-                        <div class="button-back button-up"></div>
-                    </div>
-                </button>
-             </div>
-             <div class="joystick-arrow">
-                <button id="joystick-right" class="button">
-                    <span></span><span></span>
-                    <div class="button-display">
-                        <div class="button-back button-right"></div>
-                    </div>
-                </button>
-             </div>
-             <div class="joystick-arrow">
-                <button id="joystick-down" class="button">
-                    <span></span><span></span>
-                    <div class="button-display">
-                        <div class="button-back button-down"></div>
-                    </div>
-                </button>
-             </div>
+            ${this.createMoveButton("left")}
+            ${this.createMoveButton("up")}
+            ${this.createMoveButton("right")}
+            ${this.createMoveButton("down")}
         </div>                        
       </div>
     `;
     return content;
+  }
+
+  // Create movement button
+  createMoveButton(direction) {
+    return `
+      <div class="joystick-arrow">
+        <button id="joystick-${direction}" class="button">
+          <span></span><span></span>
+          <div class="button-display">
+            <div class="button-back button-${direction}"></div>
+          </div>
+        </button>
+      </div>`;
   }
 
   // Create a button
@@ -178,10 +163,6 @@ class SokoPacView {
       this.initializeGrid();
     }
     const boardDiv = document.getElementById("gameGrid");
-    const moveCountDiv = document.getElementById("moveCount");
-    if (moveCountDiv) {
-      moveCountDiv.textContent = "Moves: " + this.viewModel.getMoveCount();
-    }
 
     // Calculate the number of columns and rows
     const { numColumns, numRows } = this.viewModel.getBoardDimensions();
@@ -191,7 +172,7 @@ class SokoPacView {
 
     // Calculate squareSize based on the longer dimension
     const maxDimension = isHorizontal ? numColumns : numRows;
-    const squareSize = Math.min(90 / maxDimension, 7); // Calculate size, but not larger than 5vmin
+    const squareSize = Math.min(90 / maxDimension, 7);
 
     // Set grid template columns based on the number of columns
     boardDiv.style.gridTemplateColumns = `repeat(${numColumns}, ${squareSize}vmin)`;

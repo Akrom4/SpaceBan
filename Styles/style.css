@@ -1,8 +1,7 @@
 /* #region Main */
 :root {
   --square-size: 5vmin;
-  --joystick-color: #f76c6c;
-  --joystick-head-color: #9cffa4;
+  --rgbColorStyle : linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
 }
 
 body {
@@ -35,10 +34,6 @@ body {
   justify-content: center;
 }
 
-#moveCount {
-  background-color: #ffffff;
-}
-
 #startMenu {
   display: flex;
   flex-direction: column;
@@ -48,7 +43,7 @@ body {
 }
 
 .glowingRGB {
-  background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+  background: var(--rgbColorStyle);
   border-radius: 2vmin;
   cursor: default;
   animation: animate 1.5s linear infinite;
@@ -69,7 +64,7 @@ body {
   letter-spacing: 1px;
   margin-left: 5vmin;
   margin-right: 5vmin;
-  background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+  background: var(--rgbColorStyle);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -177,6 +172,7 @@ body {
   align-items: center;
   margin-bottom: 5vmin;
 }
+
 .boardActions {
   display: flex;
   flex-direction: column;
@@ -228,7 +224,7 @@ body {
 .square3 {
   border-radius: 10px;
   padding: 0;
-  background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+  background: var(--rgbColorStyle);
   animation: animate 1.5s linear infinite;
 }
 
@@ -287,7 +283,7 @@ body {
   cursor: pointer;
   outline: none;
   border: none;
-  background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+  background: var(--rgbColorStyle);
   animation: animate 1.5s linear infinite;
 }
 
@@ -325,7 +321,7 @@ body {
   color: #fff;
   font-weight: 600;
   letter-spacing: 1px;
-  background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+  background: var(--rgbColorStyle);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -392,7 +388,7 @@ body {
   flex-direction: column;
   align-items: center;
   border-width: 2px;
-  border-image: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0) 1;
+  border-image: var(--rgbColorStyle) 1;
   border-style: double;
   border-radius: 10px;
   padding: 2vmin;
@@ -443,7 +439,7 @@ body {
   letter-spacing: 1px;
   margin-left: 5vmin;
   margin-right: 5vmin;
-  background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+  background: var(--rgbColorStyle);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -468,7 +464,7 @@ body {
   font-family: "Poppins", sans-serif;
   font-size: 0.5em;
   margin-bottom: 1vmin;
-  border-image: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0) 1;
+  border-image: var(--rgbColorStyle) 1;
   border-radius: 1vmin;
   cursor: pointer;
 }

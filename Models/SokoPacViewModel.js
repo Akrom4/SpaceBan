@@ -67,7 +67,7 @@ class SokoPacViewModel {
     const mapCollection = await this.loadMapsFromCollection(collection);
     this.model.setMapCollection(mapCollection);
 
-    // Continue with rendering the level selection menu or other actions
+    // Continue with rendering the level selection menu
     this.view.renderLevelSelectionMenu();
   }
 
