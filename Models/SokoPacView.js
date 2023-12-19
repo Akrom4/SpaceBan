@@ -44,7 +44,6 @@ class SokoPacView {
     return content;
   }
 
-  
   // Create movement button
   createMoveButton(direction) {
     return `
@@ -232,7 +231,7 @@ class SokoPacView {
         } else if (square === 3) {
           // Wall
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
-                                <div class="square square${square}" style="width: ${adjustedSize}vmin; height: ${adjustedSize}vmin;">
+                                <div class="square square3" style="width: ${adjustedSize}vmin; height: ${adjustedSize}vmin;">
                                     <span></span><span></span>
                                     <div class="square3-display">
                                         <div class="square3-content"></div>
@@ -261,7 +260,7 @@ class SokoPacView {
       {
         id: "AutoGen",
         text: "Auto Gen",
-        description: "AI-assisted creations can be quite challenging!",
+        description: "AI-assisted creations, small levels",
       },
       {
         id: "Handmade",
@@ -306,21 +305,7 @@ class SokoPacView {
     const buttons = document.querySelectorAll(".menu-button");
     buttons.forEach((button) => {
       button.addEventListener("click", (event) => {
-        switch (event.currentTarget.id) {
-          case "createMapButton":
-            console.log("Create Map button clicked");
-            break;
-          case "Vanilla":
-          case "AutoGen":
-          case "Handmade":
-            // Call the ViewModel function to handle collection selection
-            this.viewModel.handleCollectionSelection(event.currentTarget.id);
-            break;
-          default:
-            // Optional: Handle any other case or log an error
-            console.log("Unknown button clicked");
-            break;
-        }
+        this.viewModel.handleCollectionSelection(event.currentTarget.id);
       });
     });
   }
