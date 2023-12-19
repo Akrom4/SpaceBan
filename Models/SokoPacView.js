@@ -112,36 +112,36 @@ class SokoPacView {
     const joystick = document.getElementById("joystick");
 
     joystick.addEventListener("click", (event) => {
-        let button = event.target.closest(".joystick-arrow button");
-        if (button) {
-          const direction = button.id;
-          console.log(direction);
-          switch (direction) {
-            case "joystick-left":
-              this.viewModel.handleMove([-1, 0]);
-              break;
-            case "joystick-right":
-              this.viewModel.handleMove([1, 0]);
-              break;
-            case "joystick-up":
-              this.viewModel.handleMove([0, -1]);
-              break;
-            case "joystick-down":
-              this.viewModel.handleMove([0, 1]);
-              break;
-            default:
-              break;
-          }
-        }
-      });
+      let button = event.target.closest(".joystick-arrow button");
+      if (button) {
+        const direction = button.id;
 
+        switch (direction) {
+          case "joystick-left":
+            this.viewModel.handleMove([-1, 0]);
+            break;
+          case "joystick-right":
+            this.viewModel.handleMove([1, 0]);
+            break;
+          case "joystick-up":
+            this.viewModel.handleMove([0, -1]);
+            break;
+          case "joystick-down":
+            this.viewModel.handleMove([0, 1]);
+            break;
+          default:
+            break;
+        }
+      }
+    });
+
+    // Handle the Collections
     levelsButton.addEventListener("click", () => {
-      // Handle the 'Collections'
       this.renderStartMenu();
     });
 
+    // Handle the Levels
     collectionsButton.addEventListener("click", () => {
-      // Handle the 'Levels'
       this.renderLevelSelectionMenu();
     });
 
@@ -349,6 +349,7 @@ class SokoPacView {
     const progress = this.viewModel.getClearedLevels();
     const clearedLevels = progress[collectionId] || [];
     const totalLevels = this.viewModel.getTotalLevels();
+
     let menuContent = `<div id="startMenu">
                         <div class="header-container">
                         <div class="back-container">
@@ -440,19 +441,20 @@ class SokoPacView {
       "collectionSelectionButton"
     );
 
+    // Handle going back to level selection
     levelSelectionButton.addEventListener("click", () => {
-      // Handle going back to level selection
       this.renderLevelSelectionMenu();
       this.closeWinModal();
     });
 
+    // Handle going back to collection selection
     collectionSelectionButton.addEventListener("click", () => {
-      // Handle going back to collection selection
       this.renderStartMenu();
       this.closeWinModal();
     });
   }
 
+  // Close the win modal
   closeWinModal() {
     const winModal = document.getElementById("winModal");
     if (winModal) {

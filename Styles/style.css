@@ -2,7 +2,7 @@
 :root {
   --square-size: 5vmin;
   --joystick-color: #f76c6c;
-    --joystick-head-color: #9cffa4;
+  --joystick-head-color: #9cffa4;
 }
 
 body {
@@ -13,7 +13,7 @@ body {
   align-items: center;
   justify-content: center;
   background-color: #000000;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .header-container {
@@ -25,14 +25,14 @@ body {
 }
 .back-container {
   position: absolute;
-  left: 0; 
+  left: 0;
   top: 0;
 }
 
 .title-container {
   width: 100%;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
 }
 
 #moveCount {
@@ -170,19 +170,19 @@ body {
   justify-content: center;
 }
 
-.nav{
+.nav {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 5vmin;
 }
-.boardActions{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 5vmin;
+.boardActions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5vmin;
 }
 
 #gameGrid {
@@ -220,12 +220,10 @@ body {
   height: 30%;
   border-radius: 50%;
   background-color: #fff;
-  box-shadow:
-    0 0 calc(var(--square-size) / 3) calc(var(--square-size) / 6) #fff,
+  box-shadow: 0 0 calc(var(--square-size) / 3) calc(var(--square-size) / 6) #fff,
     0 0 calc(var(--square-size) / 2) calc(var(--square-size) / 4) #f0f,
     0 0 calc(var(--square-size) / 1.5) calc(var(--square-size) / 3) #0ff;
 }
-
 
 .square3 {
   border-radius: 10px;
@@ -301,7 +299,6 @@ body {
   background-color: #555;
 }
 
-
 .button-display {
   background-color: #1b1b1b;
   border-radius: 10px;
@@ -336,14 +333,14 @@ body {
   margin-right: 2vmin;
 }
 
-.back-container{
+.back-container {
   margin-right: 20vmin;
 }
 
 .button-back {
-  width: 5vmin; 
-  height: 5vmin; 
-  position: relative; 
+  width: 5vmin;
+  height: 5vmin;
+  position: relative;
   background: none;
   border: none;
   cursor: pointer;
@@ -355,9 +352,9 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 50%; 
-  height: 1vmin; 
-  background: #0ff; 
+  width: 50%;
+  height: 1vmin;
+  background: #0ff;
   transform-origin: 20%; /* Align to the left */
 }
 
@@ -403,13 +400,11 @@ body {
 
 .button-description {
   font-size: 1.75em;
-  color: #ADD8E6;
+  color: #add8e6;
   text-align: center;
   margin-top: 0.5em;
   text-align: justify;
 }
-
-
 
 /* #endregion */
 /* #region Win Modal */
@@ -431,7 +426,6 @@ body {
   margin: 20% auto;
   border: 2vmin solid transparent;
   width: 50%;
-
 }
 
 .modal-display {
@@ -457,7 +451,7 @@ body {
 }
 
 #lvlCleared {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1em;
   margin-bottom: 3vmin;
 }
@@ -471,7 +465,7 @@ body {
 
 .modal button {
   background-color: transparent;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.5em;
   margin-bottom: 1vmin;
   border-image: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0) 1;
@@ -482,32 +476,37 @@ body {
 /* #endregion */
 /* #region Joystick */
 #joystick {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    width: 10em;
-    height: 10em;
-    margin-left: 1em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 20vmin;
+  height: 20vmin;
+  margin-left: 1em;
+  margin-top: 1em;
 }
 
-.joystick-arrow:nth-child(1) { /* Assuming this is joystick-left */
-    grid-column: 1;
-    grid-row: 2;
+.joystick-arrow:nth-child(1) {
+  /* Assuming this is joystick-left */
+  grid-column: 1;
+  grid-row: 2;
 }
 
-.joystick-arrow:nth-child(2) { /* Assuming this is joystick-up */
-    grid-column: 2;
-    grid-row: 1;
+.joystick-arrow:nth-child(2) {
+  /* Assuming this is joystick-up */
+  grid-column: 2;
+  grid-row: 1;
 }
 
-.joystick-arrow:nth-child(3) { /* Assuming this is joystick-right */
-    grid-column: 3;
-    grid-row: 2;
+.joystick-arrow:nth-child(3) {
+  /* Assuming this is joystick-right */
+  grid-column: 3;
+  grid-row: 2;
 }
 
-.joystick-arrow:nth-child(4) { /* Assuming this is joystick-down */
-    grid-column: 2;
-    grid-row: 3;
+.joystick-arrow:nth-child(4) {
+  /* Assuming this is joystick-down */
+  grid-column: 2;
+  grid-row: 3;
 }
 
 .button-down::before,
@@ -516,9 +515,9 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 50%; 
-  height: 1vmin; 
-  background: #0ff; 
+  width: 50%;
+  height: 1vmin;
+  background: #0ff;
   transform-origin: 30%; /* Align to the left */
 }
 
@@ -536,9 +535,9 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 50%; 
-  height: 1vmin; 
-  background: #0ff; 
+  width: 50%;
+  height: 1vmin;
+  background: #0ff;
   transform-origin: 0%; /* Align to the left */
 }
 
@@ -556,9 +555,9 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 50%; 
-  height: 1vmin; 
-  background: #0ff; 
+  width: 50%;
+  height: 1vmin;
+  background: #0ff;
   transform-origin: 20%; /* Align to the left */
 }
 
@@ -569,7 +568,6 @@ body {
 .button-right::after {
   transform: translateX(0%) translateY(-50%) rotate(135deg); /* Lower line of the arrow */
 }
-
 
 /* #endregion */
 /* #region Media Queries */
@@ -586,14 +584,14 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
   }
-  .nav{
+  .nav {
     flex-direction: row;
   }
-  .boardActions{
-      flex-direction: row;
+  .boardActions {
+    flex-direction: row;
   }
   .button {
     font-size: 1.5em;
   }
-} 
+}
 /* #endregion */
