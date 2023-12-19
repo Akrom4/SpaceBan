@@ -44,6 +44,7 @@ class SokoPacView {
     return content;
   }
 
+  
   // Create movement button
   createMoveButton(direction) {
     return `
@@ -194,14 +195,14 @@ class SokoPacView {
           // Robot
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square0" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
-                                    <img src="Images/robot.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
+                                    <img src="Images/robot.png">
                                 </div>
                             </div>`;
         } else if (square === 6) {
           // Robot on dot
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square0" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
-                                    <img src="Images/robot.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
+                                    <img src="Images/robot.png">
                                     <div class="square square1" style="width: ${
                                       squareSize * 0.3
                                     }vmin; height: ${
@@ -213,14 +214,14 @@ class SokoPacView {
           // Alien
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square2" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
-                                    <img src="Images/alienWin.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
+                                    <img src="Images/alienWin.png">
                                 </div>
                             </div>`;
         } else if (square === 5) {
           // Alien on dot
           content += `<div class="squareWrap" style="width: ${squareSize}vmin; height: ${squareSize}vmin;">
                                 <div class="square square5" style="width: ${squareSize}vmin; height: ${squareSize}vmin; position: relative;">
-                                    <img src="Images/alien.png" style="width: 80%; height: 80%; position: absolute; z-index: 2;">
+                                    <img src="Images/alien.png">
                                     <div class="square square1" style="width: ${
                                       squareSize * 0.3
                                     }vmin; height: ${
