@@ -4,9 +4,9 @@
 SpaceBan is a twist on the classic Sokoban puzzle game. As Rob the Robot, your mission is to move Aliens onto the lights. Be careful not to trap yourself!
 
 ## ⌨️ Controls
-Arrow Keys: Move Rob <br/>
-U: Undo the last move <br/>
-R: Restart the current level<br/>
+Arrow Keys : Move Rob <br/>
+U : Undo the last move <br/>
+R : Restart the current level<br/>
 
 ## 🛠️ Tech Stack
 <ul>
