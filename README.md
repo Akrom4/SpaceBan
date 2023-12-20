@@ -1,6 +1,7 @@
 # <p align="center">Spaceban</p>
-    
-SpaceBan is a twist on the classic Sokoban puzzle game. As Rob the Robot, your mission is to move Aliens onto the lights. Be careful not to trap yourself!
+   ![screenShot](https://github.com/Akrom4/SokoPac/assets/75309565/14f87e25-2031-44c9-aa8f-c91526f45a1a) 
+<p>SpaceBan is a twist on the classic Sokoban puzzle game. As Rob the Robot, your mission is to move Aliens onto the lights. Be careful not to trap yourself!</p>
+
 
 ## ⌨️ Controls
 Arrow Keys : Move Rob <br/>
