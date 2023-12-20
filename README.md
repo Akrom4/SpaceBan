@@ -1,5 +1,4 @@
 # <p align="center">Spaceban</p>
-<img src="https://ibb.co/hHYLZdN"></img>
     
 SpaceBan is a twist on the classic Sokoban puzzle game. As Rob the Robot, your mission is to move Aliens onto the lights. Be careful not to trap yourself!
 
