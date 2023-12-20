@@ -95,6 +95,10 @@ class SokoPacViewModel {
     this.view.updateUI();
   }
 
+  // Handle rules modal display
+    handleRules() {
+        this.view.showRulesModal();
+    }
   // Handle the menu button
   handleMenu() {
     this.view.renderLevelSelectionMenu();

@@ -410,6 +410,17 @@ img{
 }
 
 /* #endregion */
+/* #region Rules */
+#gameMenu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 80%;
+    margin-top: 5vmin;
+}
+
+/* #endregion */
 /* #region Win Modal */
 .modal {
   display: block;
@@ -466,6 +477,28 @@ img{
   z-index: 20;
 }
 
+.modal-rules {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    z-index: 20;
+  }
+
+  .modalRGB-rules {
+    color: #fff;
+    font-size: 2.15em;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-left: 5vmin;
+    margin-right: 5vmin;
+    background: var(--rgbColorStyle);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate 1.5s linear infinite;
+  }
+
 .modal button {
   background-color: transparent;
   font-family: "Poppins", sans-serif;
@@ -482,8 +515,8 @@ img{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  width: 20vmin;
-  height: 20vmin;
+  width: auto;
+  height: auto;
   margin-left: 1em;
   margin-top: 1em;
 }

@@ -33,12 +33,15 @@ class SokoPacView {
           </div>
         </div>
         <div id="gameGrid" class="game-grid"></div>
-        <div id="joystick">
-            ${this.createMoveButton("left")}
-            ${this.createMoveButton("up")}
-            ${this.createMoveButton("right")}
-            ${this.createMoveButton("down")}
-        </div>                        
+        <div id="gameMenu" class="game-menu">
+            ${this.createUIButton({ id: "rules", text: "Rules" })}
+            <div id="joystick">
+                ${this.createMoveButton("left")}
+                ${this.createMoveButton("up")}
+                ${this.createMoveButton("right")}
+                ${this.createMoveButton("down")}
+            </div>                        
+        </div>
       </div>
     `;
     return content;
@@ -95,6 +98,8 @@ class SokoPacView {
     const undoButton = document.getElementById("undo");
     const resetButton = document.getElementById("reset");
     const joystick = document.getElementById("joystick");
+    const rules = document.getElementById("rules");
+
 
     joystick.addEventListener("click", (event) => {
       let button = event.target.closest(".joystick-arrow button");
@@ -136,6 +141,10 @@ class SokoPacView {
 
     resetButton.addEventListener("click", () => {
       this.viewModel.handleReset();
+    });
+
+    rules.addEventListener("click", () => {
+      this.viewModel.handleRules();
     });
   }
 
@@ -377,6 +386,52 @@ class SokoPacView {
       });
     }
   }
+
+  // Show the rules modal
+  showRulesModal() {
+    const modalContent = `
+      <div id="rulesModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-display">
+            <div class="modalRGB-rules">
+              <div class="modal-rules">
+              <div style="margin-top:1em;">Rules</div>
+                <p>Push the aliens on the lights.<br/>
+                    Don't get stuck !<br/>
+                </p>
+                <p>
+                    Press &larr; &uarr; &darr; &rarr; to move.<br/>
+                    Press U to undo<br/>
+                    Press R to restart<br/>
+                </p>
+                <button id="closeRulesButton">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Add the modal content to the app element
+    const app = document.getElementById("app");
+    app.insertAdjacentHTML("beforeend", modalContent);
+
+    // Bind click events for modal buttons
+    const closeRulesButton = document.getElementById("closeRulesButton");
+
+    // Handle closing the modal
+    closeRulesButton.addEventListener("click", () => {
+      this.closeRulesModal();
+    });
+  }
+
+    // Close the rules modal
+    closeRulesModal() {
+        const rulesModal = document.getElementById("rulesModal");
+        if (rulesModal) {
+            rulesModal.remove();
+        }
+    }
 
   // Show the win modal
   showWinModal() {
