@@ -48,4 +48,4 @@ SpaceBan follows the MVVM (Model-View-ViewModel) design pattern for structured a
 <b>Maps</b> : Contains JSON files with map layouts, categorized into collections.<br/>
 <b>Models</b> : Houses MVVM classes and MapCollection for parsing map data.<br/>
 <b>Styles</b> : CSS files for styling.<br/>
-<b>Utils</b> : Python utilities for downloading and parsing maps from Yoshio Murase's Sokoban website.<br/>
+<b>Utils</b> : Python utilities for downloading and parsing maps from <a href="https://www.ne.jp/asahi/ai/yoshio/sokoban/index.html">Yoshio Murase's Sokoban website</a>.<br/>
