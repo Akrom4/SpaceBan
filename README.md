@@ -20,7 +20,7 @@ R: Restart the current level<br/>
         
 SpaceBan follows the MVVM (Model-View-ViewModel) design pattern for structured and maintainable code.<br/> 
 
-Here's the project structure :<br/>
+<p>Here's the project structure :</p>
 │<b>Spaceban</b><br/>
 │   index.html<br/>
 ├───Images<br/>
@@ -45,7 +45,7 @@ Here's the project structure :<br/>
         └───Original<br/>
 
 ### Components
-Maps: Contains JSON files with map layouts, categorized into collections.
-Models: Houses MVVM classes and MapCollection for parsing map data.
-Styles: CSS files for styling.
-Utils: Python utilities for downloading and parsing maps from Yoshio Murase's Sokoban website.
+<b>Maps</b> : Contains JSON files with map layouts, categorized into collections.<br/>
+<b>Models</b> : Houses MVVM classes and MapCollection for parsing map data.<br/>
+<b>Styles</b> : CSS files for styling.<br/>
+<b>Utils</b> : Python utilities for downloading and parsing maps from Yoshio Murase's Sokoban website.<br/>
