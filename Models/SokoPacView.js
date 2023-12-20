@@ -395,7 +395,6 @@ class SokoPacView {
           <div class="modal-display">
             <div class="modalRGB-rules">
               <div class="modal-rules">
-              <div style="margin-top:1em;">Rules</div>
                 <p>Push the aliens on the lights.<br/>
                     Don't get stuck !<br/>
                 </p>
